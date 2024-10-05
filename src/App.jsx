@@ -8,11 +8,9 @@ function App() {
 
   return (
     <>
-    <h1>
-      Adv Web Development Setup
-    </h1>
+    <h1>Adv Web Development Setup</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
