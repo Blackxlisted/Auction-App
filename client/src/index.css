@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.btn {
+  @apply bg-gray-800 p-2 rounded-sm hover:bg-gray-600 hover:font-bold active:bg-gray-800 active:font-bold focus:ring focus:ring-gray-400;
+}
+
+.nav .active {
+  color: #474dc6;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.nav li:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-icon {
+    width: 50px;
+  }
+  .hide {
+    display: none;
+  }
+  
+}
+@media only screen and (width > 600px) {
+  .menu-icon {
+    display: none;
+    width: 10px;
+  }
+  .hide {
+    display: show;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  input {
+    color:white;
+  }
+}
