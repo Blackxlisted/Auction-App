@@ -1,16 +1,20 @@
 // Update with your config settings.
+import dotenv from 'dotenv';
+dotenv.config(dotenv.config({ path: '../.env' }));
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-export default {
+
+const config = {
 
   development: {
     client: 'postgresql',
     connection: {
-       database: 'k3s-db.cmp.uea.ac.uk',
-       user: 'hyg22ktu',
-       password: 'SkirtLockWeather37_'
+       host: process.env.DEV_DB_HOST,
+       database: process.env.DEV_DB_NAME,
+       user: process.env.DEV_DB_USERNAME,
+       password: process.env.DEV_DB_PASSWORD
     }
   },
 
@@ -45,5 +49,9 @@ export default {
       tableName: 'knex_migrations'
     }
   }
+}
+console.log("Connection:", config['development']);
+// const db = knex(development);
 
-};
+
+export default config // Export the configured knex instance
