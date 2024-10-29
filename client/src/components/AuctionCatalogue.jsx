@@ -1,10 +1,10 @@
 import React from 'react'
-import AuctionItem from './__tests__/AuctionItem';
+import AuctionItem from './AuctionItem';
 
-function AuctionCatalogue() {
+function AuctionCatalogue({ auctionsInfo }) {
   return (
     <div>
-        <AuctionItem />
+        <AuctionItem auctionsInfo={auctionsInfo}/>
     </div>
   )
 }

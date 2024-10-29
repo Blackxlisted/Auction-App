@@ -1,11 +1,11 @@
 import React from 'react'
-import AuctionCatalogue from '../components/AuctionCatalogue'
+import AuctionCatalogueContainer from '../components/AuctionCatalogueContainer';
 
 function AuctionsPage() {
   return (
     <>
         <h2>AuctionsPage</h2>
-        <AuctionCatalogue/>
+        <AuctionCatalogueContainer/>
     </>
   )
 }
