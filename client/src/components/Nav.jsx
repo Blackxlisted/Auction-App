@@ -15,7 +15,7 @@ const Nav = ()  => {
 
                 <img src={Hamburger} alt="menu-icon" className="menu-icon w-10 absolute top-5 right-5"></img>
             </div>
-            <ul className= {`nav ${toggle ? 'show' : 'hide'} flex flex-row gap-4 ml-[80%] p-4`}>
+            <ul className= {`nav ${toggle ? 'show' : 'hide'} flex flex-row gap-4 p-4 fixed right-6 top-6`}>
                 <li> <NavLink to='/' className='link w-10'>
                 Home</NavLink> </li>
                 <li> <NavLink to='/create-auction' className='link'>

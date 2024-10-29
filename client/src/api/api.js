@@ -9,3 +9,19 @@ export const getAuctions = async () => {
         console.error('Error fetching auctions from backend server', error);
     }
 };
+
+// export const getImages = async () => {
+//     try {
+//         const auctionItems = await getAuctions();
+//         auctionItems.map(auctionItem => {
+//             const { image } = auctionItem;
+//             console.log(image);
+//             return (
+//                 import(image)
+//             )
+//         })
+
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
