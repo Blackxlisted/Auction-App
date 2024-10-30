@@ -5,21 +5,29 @@ import { NavLink } from 'react-router-dom';
 import UserContainer from "./UserContainer";
 import { useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../features/user/userSlice.js';
+//import { logoutUser } from '../features/user/userSlice.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Nav = ()  => {
     const [toggle, setToggle] = useState(false);
-    const navigate = useNavigate();
+    const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user.user);
-    const login = () => {
-        console.log('login');
-    }
-    const logout = () => {
-        console.log('logout');
-        dispatch(logoutUser());
-        navigate('/');
-    }
+
+    console.log(
+        isAuthenticated,
+        user,
+        isLoading
+    )
+
+    // const user = useSelector((state) => state.user.user);
+    // const login = () => {
+    //     console.log('login');
+    // }
+    // const logout = () => {
+    //     console.log('logout');
+    //     dispatch(logoutUser());
+    //     navigate('/');
+    // }
 
     return (
         <nav>
@@ -37,7 +45,7 @@ const Nav = ()  => {
                 Create Auction</NavLink> </li>
                 <li> <NavLink to='/auctions' className='link'>
                 Auctions</NavLink> </li>
-                <UserContainer user={user} login={login} logout={logout} />
+                <UserContainer user={user} login={loginWithRedirect} logout={logout} />
             </ul>
         </nav>
     );

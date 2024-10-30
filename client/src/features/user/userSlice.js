@@ -9,7 +9,8 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         loginUser: (state, action) => {
-            console.log("login");
+            state.user = action.payload;
+            console.log('userSlice is trying to save user:', state.user);
         },
         logoutUser: (state) => {
             state.user = null;
