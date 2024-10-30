@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const AUCTION_URL = import.meta.env.VITE_DEVELOPMENT_AUCTIONS_URL;
 
@@ -14,7 +15,10 @@ const handleSubmit = (e) => {
 
   // Convert the FormData object to key-value pairs
   const entries = Object.fromEntries(data); // Use `.entries()` method
-  console.log(entries);
+  const { user } = useAuth0();
+  const userID = user.sub;
+  const entriesWithID = entries.userID = userID;
+  console.log(entriesWithID);
   
   axios
     .post(AUCTION_URL, entries)
@@ -39,8 +43,8 @@ function AuctionCreation() {
         <input type="number" id='price' name='price' />
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
-        <label htmlFor='end-datetime'></label>
-        <input type="datetime-local" id='end-datetime' name='end-datetime' />
+        <label htmlFor='endDatetime'></label>
+        <input type="datetime-local" id='endDatetime' name='endDatetime' />
         <button type='submit' className='btn'>Create Auction</button>
     </form>
   )
