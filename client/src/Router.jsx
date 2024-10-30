@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Route } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
     CreateAuctionPage,
     LandingPage,
@@ -19,13 +20,27 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/create-auction',
-                element: <CreateAuctionPage />
+                element: (
+                    <PrivateRoute>
+                        <CreateAuctionPage />
+                    </PrivateRoute>
+                )
             },
             {
                 path: '/auctions',
-                element: <AuctionsPage />
+                element: (
+                    <PrivateRoute>
+                        <AuctionsPage />
+                    </PrivateRoute>
+                )
             },
         ]
 
     }
 ])
+
+
+function PrivateRoute({ children }) {
+    const { isAuthenticated } = useAuth0();
+    return isAuthenticated ? children : <Navigate to="/"/>;
+}
