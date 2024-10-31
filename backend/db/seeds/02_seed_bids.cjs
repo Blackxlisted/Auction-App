@@ -8,7 +8,7 @@ exports.seed = async function(knex) {
   await knex('bids').insert([
     {
       uid: 1,
-      item_id: 2,
+      item_id: 1,
       amount_bid: 100,
       time_bid: '2024-12-01 18:30:00'
     },

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { getAuctionItem } from '../api/api.js'
+import { getAuctionItem, getBids } from '../api/api.js'
 import { useParams } from 'react-router-dom';
 import { loadImage } from '../utils/utils.js';
 import { useAuth0 } from '@auth0/auth0-react';
+import BidsCatalogue from '../components/BidsCatalogue.jsx';
 
 function AuctionItemPage() {
   const { user } = useAuth0();
@@ -10,6 +11,7 @@ function AuctionItemPage() {
   const { id } = useParams();
   const [auctionInfo, setAuctionInfo] = useState({});
   const [image, setImage] = useState(null);
+  const [bids, setBids] = useState([]);
 
   useEffect(() => {
    
@@ -30,6 +32,19 @@ function AuctionItemPage() {
     fetchItem(id);
     
   }, [id]);
+
+  useEffect(() => {
+    async function fetchBids() {
+        try {
+            const bidsObject = await getBids();
+            console.log(bidsObject)
+            setBids(bidsObject);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    fetchBids();
+  }, []);
 
 
 
@@ -54,7 +69,7 @@ function AuctionItemPage() {
         </div>
         <section>
             <div>
-                
+                <BidsCatalogue bids={bids} itemInfo={auctionInfo}/>
             </div>
         </section>
     </>

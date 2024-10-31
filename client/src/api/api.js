@@ -1,5 +1,6 @@
 import axios from 'axios';
 const AUCTIONS_ENDPOINT = 'http://localhost:5005/api/auctions';
+const BIDS_ENDPOINT = 'http://localhost:5005/api/bids';
 
 export const getAuctions = async () => {
     try {
@@ -23,8 +24,11 @@ export const getAuctionItem = async (id) => {
     }
 };
 
-// export const getBids = async () => {
-//     try {
-//         const 
-//     }
-// }
+export const getBids = async () => {
+    try {
+        const response = await axios.get(BIDS_ENDPOINT);
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving bids', error);
+    }
+}
