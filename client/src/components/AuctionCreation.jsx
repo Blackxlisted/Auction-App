@@ -22,11 +22,13 @@ function AuctionCreation() {
   
     // Convert the FormData object to key-value pairs
     const entries = Object.fromEntries(data); // Use `.entries()` method
-    
+    const { file } = entries;
+    console.log(file);
+    const image = file.name;
   
     const uid = user.sub;
-    console.log(uid);
     const entriesWithUID = {...entries, uid};
+    entriesWithUID.file = image;
     console.log(entriesWithUID);
     
     axios

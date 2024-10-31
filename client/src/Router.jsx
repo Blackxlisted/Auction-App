@@ -6,6 +6,7 @@ import {
     HomeLayoutPage,
     ErrorPage,
     AuctionsPage,
+    AuctionItemPage,
 } from "./pages/index";
 
 export const router = createBrowserRouter([
@@ -32,7 +33,13 @@ export const router = createBrowserRouter([
                     <PrivateRoute>
                         <AuctionsPage />
                     </PrivateRoute>
-                )
+                ),
+                children: [
+                    {
+                        path: ':id', 
+                        element: <AuctionItemPage />
+                    }
+                ]
             },
         ]
 

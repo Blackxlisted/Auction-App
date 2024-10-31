@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.string("title", 50).notNullable().defaultTo("");
     table.string("description", 500).notNullable().defaultTo("");
     table.integer("price").notNullable().defaultTo(0);
-    table.string("image", 500).notNullable().defaultTo("No-Image-Available");
+    table.string("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
     // holds path to image uploaded by user - not actual image
     // default should be path for stock image?
     table.dateTime("end_time").notNullable().defaultTo(
