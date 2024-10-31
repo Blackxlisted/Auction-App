@@ -12,13 +12,9 @@ const getAllAuctions = async () => {
     return results;
 }
 
-const insertToAuctions = async (req, res) => {
-    try {
-        const body = req.body;
-        console.log(body);
-        const { title, uid, description, price, file, end_time } = body;
-  
-        await db('auctions').insert({
+const insertAuction = async (title, uid, description, price, file, end_time) => {
+    await db('auctions')
+        .insert({
             title: title,
             uid: uid,
             description: description,
@@ -26,17 +22,6 @@ const insertToAuctions = async (req, res) => {
             image: file,
             end_time: end_time
         })
-        
-        // console.log('Success');
-        res.status(201).json({ message: 'Auction created successfully' });       
-    }
-    
-    catch (error) {
-        
-        console.error('Error inserting record', error);
-        res.status(500).json({ error: 'Error creating auction' });
-        
-    };
-};
+}
 
-export { getAllAuctions, insertToAuctions }
+export { getAllAuctions, insertAuction }

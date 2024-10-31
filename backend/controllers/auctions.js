@@ -1,13 +1,32 @@
-import { getAllAuctions } from '../models/auctions.js';
+import { getAllAuctions, insertAuction } from '../models/auctions.js';
 
-async function getAuctions(req, res) {
+
+const getAuctions = async (req, res) => {
     try { 
         const results = await getAllAuctions();
         return res.status(200).json(results);
     } catch (error) {
-        console.log(error);
-        return res.status(500).json(error);
+        console.log(error); // debug
+        return res.status(500).json(error);  // neat error handler
+        
     }
 } 
 
-export { getAuctions }
+const insertToAuctions = async (req, res) => {
+    try {
+        const body = req.body;
+        console.log(body);
+        const { title, uid, description, price, file, end_time } = body;
+  
+        await insertAuction(title, uid, description, price, file, end_time);
+        return res.status(201).json({ message: 'Auction created successfully' });       
+    }
+    
+    catch (error) {
+        console.error(error) // debug
+        return res.status(500).json({ error: 'Error creating auction' }); // neat error handler
+    };
+};
+
+
+export { getAuctions, insertToAuctions }

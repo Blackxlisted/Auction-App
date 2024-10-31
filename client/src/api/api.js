@@ -22,3 +22,9 @@ export const getAuctionItem = async (id) => {
         console.error('Error fetching auctions from backend server', error);
     }
 };
+
+// export const getBids = async () => {
+//     try {
+//         const 
+//     }
+// }

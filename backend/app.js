@@ -1,5 +1,6 @@
 import express from 'express';
 import AuctionsRouter from './routes/auctions.js';
+import BidsRouter from './routes/bids.js';
 import cors from 'cors';
 
 const app = express();
@@ -11,14 +12,16 @@ app.use(express.json());
 
 // routes
 app.use('/api/auctions', AuctionsRouter);
+app.use('/api/bids', BidsRouter);
 
+// middleware error handler
 app.use((req, res) => {
     res.status(400).send('Bad request. Route not found. test')
 })
 
-const PORT = 5005; // Set the desired port
+const PORT = 5005;
 
-// Start the server
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,6 +1,6 @@
 import express from 'express';
-import { getAuctions } from '../controllers/auctions.js';
-import { insertToAuctions } from '../models/auctions.js';
+import { getAuctions, insertToAuctions } from '../controllers/auctions.js';
+
 
 const router = express.Router();
 
