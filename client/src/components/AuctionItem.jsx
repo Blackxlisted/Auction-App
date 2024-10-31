@@ -1,12 +1,18 @@
 import React from 'react'
 import imageNotFound from '../assets/No-Image-Available.jpg';
 import { useState, useEffect } from 'react';
- 
+import { useSelector } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 
 const AuctionItem = ({ auctionsInfo }) => {
+    const { user, isLoading } = useAuth0();
     const [images, setImage] = useState({});
+
+    const sub = user?.sub; // This will be undefined if user is null or undefined
+    console.log(sub); // Safe access
+
 
     const loadImage = async (imageName) => {
       try {
@@ -57,7 +63,13 @@ const AuctionItem = ({ auctionsInfo }) => {
                     <p> Starting at: £{(auctionInfo.price)/100} </p>
                     <p> Ends on: {auctionInfo.end_time} </p>
                 </div>
-                <button className='btn'> Place Bid </button>
+                {auctionInfo.uid === sub ? (
+                    <button className='btn'> View Bids </button>
+                  ) : (
+                    <button className='btn'> Place Bid </button>
+                  )
+                }
+                
             </div>
           )
         })}
