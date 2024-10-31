@@ -15,10 +15,10 @@ const handleSubmit = (e) => {
 
   // Convert the FormData object to key-value pairs
   const entries = Object.fromEntries(data); // Use `.entries()` method
-  const { user } = useAuth0();
-  const userID = user.sub;
-  const entriesWithID = entries.userID = userID;
-  console.log(entriesWithID);
+  // const { user } = useAuth0();
+  // const userID = user.sub;
+  // const entriesWithID = entries.userID = userID;
+  // console.log(entriesWithID);
   
   axios
     .post(AUCTION_URL, entries)

@@ -1,31 +1,54 @@
 import React from 'react'
 import imageNotFound from '../assets/No-Image-Available.jpg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
  
 
 
 
 const AuctionItem = ({ auctionsInfo }) => {
-    const [image, setImage] = useState(null);
+    const [images, setImage] = useState({});
 
     const loadImage = async (imageName) => {
       try {
           const imageModule = await import(`../assets/${imageName}.jpg`);
-          setImage(imageModule.default);
+          //setImage(imageModule.default);
+          return imageModule.default;
       } catch (error) {
           console.error('Error loading image', error);
       }
     };
 
+    useEffect(() => {
+      async function setImages() {
+        const localImages = {}
+        for (const auctionInfo of auctionsInfo) {
+          try {
+            const url = auctionInfo.image;
+            const id = auctionInfo.id;
+            const imageModule = await loadImage(url);
+            localImages[id] = imageModule;
+          } catch (error) {
+            console.error(error);
+          }
+          
+        };
+        
+        setImage({...localImages});
+      };
+      setImages();
+      
+    }, [auctionsInfo])
+
     return (
       <div className='grid grid-cols-4 mt-10'>
         {auctionsInfo.map((auctionInfo) => {
-          loadImage(auctionInfo.image);
+          //loadImage(auctionInfo.image)
+          
           return (
             <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
                 {/* image container */}
                 <div className='p-5'>
-                    <img src={image} className='w-60'></img>
+                    <img src={images[auctionInfo.id]} className='w-60'></img>
                 </div>
                 {/* title */}
                 <div> {auctionInfo.title} </div>
