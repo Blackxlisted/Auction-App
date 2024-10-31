@@ -6,12 +6,10 @@ exports.up = function(knex) {
   return knex.schema.createTable("auctions", (table) => {
     table.increments("id");
     table.string("uid", 100).notNullable().defaultTo("");
-    table.string("title", 50).notNullable().defaultTo("");
-    table.string("description", 500).notNullable().defaultTo("");
-    table.integer("price").notNullable().defaultTo(0);
-    table.string("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
-    // holds path to image uploaded by user - not actual image
-    // default should be path for stock image?
+    table.string("title", 50).notNullable();
+    table.text("description", 500).notNullable().defaultTo("No description provided.");
+    table.integer("price").notNullable()
+    table.text("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
     table.dateTime("end_time").notNullable().defaultTo(
       knex.raw("NOW() + INTERVAL '1 day'")
     );

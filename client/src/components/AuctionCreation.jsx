@@ -14,21 +14,24 @@ function AuctionCreation() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Get the form element
+    // gets the form element
     const form = e.currentTarget;
-  
-    // Create a new FormData object from the form
     const data = new FormData(form);
-  
-    // Convert the FormData object to key-value pairs
-    const entries = Object.fromEntries(data); // Use `.entries()` method
-    const { file } = entries;
-    console.log(file);
-    const image = file.name;
-  
+    const entries = Object.fromEntries(data);
     const uid = user.sub;
     const entriesWithUID = {...entries, uid};
+
+    // null checks and setting default values if null
+    const { file, end_time, description } = entries;
+    const descriptionChecked = description ? description : 'No description provided.'
+    const image = file.name ? file.name : 'No-Image-Available.jpg';
     entriesWithUID.file = image;
+
+    // converting end_time to db time format
+    const utcDateTime = end_time ? new Date(end_time)?.toISOString() : null;
+    // if an end time is not provided by user on auction create, delete from post object
+    // so db will set default to 1 day from now. Else set end_time in post object
+    utcDateTime ? entriesWithUID.end_time = utcDateTime : delete entriesWithUID.end_time
     console.log(entriesWithUID);
     
     axios
@@ -53,7 +56,7 @@ function AuctionCreation() {
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>
-        <input type="datetime-local" id='endDatetime' name='endDatetime' />
+        <input type="datetime-local" id='end_time' name='end_time' />
         <button type='submit' className='btn'>Create Auction</button>
     </form>
   )

@@ -50,8 +50,13 @@ function AuctionItemPage() {
             </div>            
         </div>
         <div>
-            {sub === auctionInfo.uid ? (<button className='btn'>Place bid</button>): (<h3>Current Bids</h3>)}
+            {sub === auctionInfo.uid ? (<h3>Current Bids</h3>): (<button className='btn'>Place bid</button>)}
         </div>
+        <section>
+            <div>
+                
+            </div>
+        </section>
     </>
   )
 }

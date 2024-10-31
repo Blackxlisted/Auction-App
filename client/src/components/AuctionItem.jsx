@@ -52,9 +52,9 @@ const AuctionItem = ({ auctionsInfo }) => {
                     <p> Ends on: {auctionInfo.end_time} </p>
                 </div>
                 {auctionInfo.uid === sub ? (
-                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`}> View Bids </Link> </button>
+                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`}> View your auction </Link> </button>
                   ) : (
-                    <button className='btn'> Place Bid </button>
+                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`}> View auction </Link> </button>
                   )
                 }
                 
