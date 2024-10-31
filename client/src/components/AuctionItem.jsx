@@ -1,5 +1,4 @@
 import React from 'react'
-import imageNotFound from '../assets/No-Image-Available.jpg';
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
@@ -10,8 +9,8 @@ const AuctionItem = ({ auctionsInfo }) => {
     const { user } = useAuth0();
     const [images, setImage] = useState({});
 
-    const sub = user?.sub; // This will be undefined if user is null or undefined
-    console.log(sub); // Safe access
+    const sub = user?.sub; // userID of current logged in user
+    console.log(sub);
 
     useEffect(() => {
       async function setImages() {
