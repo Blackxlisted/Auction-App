@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Hamburger from "../assets/hamburger-menu.svg";
 import { NavLink } from 'react-router-dom';
 import UserContainer from "./UserContainer";
 import { useDispatch, useSelector} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-//import { logoutUser } from '../features/user/userSlice.js';
+import { loginUser } from '../features/user/userSlice.js';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Nav = ()  => {
@@ -20,14 +19,8 @@ const Nav = ()  => {
     )
 
     // const user = useSelector((state) => state.user.user);
-    // const login = () => {
-    //     console.log('login');
-    // }
-    // const logout = () => {
-    //     console.log('logout');
-    //     dispatch(logoutUser());
-    //     navigate('/');
-    // }
+    isAuthenticated ? dispatch(loginUser(user)) : '';
+    
 
     return (
         <nav>

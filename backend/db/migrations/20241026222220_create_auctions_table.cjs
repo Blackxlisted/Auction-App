@@ -5,6 +5,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable("auctions", (table) => {
     table.increments("id");
+    table.string("uid", 100).notNullable().defaultTo("");
     table.string("title", 50).notNullable().defaultTo("");
     table.string("description", 500).notNullable().defaultTo("");
     table.integer("price").notNullable().defaultTo(0);

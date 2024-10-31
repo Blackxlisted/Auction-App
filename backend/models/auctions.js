@@ -16,10 +16,11 @@ const insertToAuctions = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { title, description, price, image, end_time } = body;
+        const { title, uid, description, price, image, end_time } = body;
         
         await db('auctions').insert({
             title: title,
+            uid: uid,
             description: description,
             price: price,
             image: image,
