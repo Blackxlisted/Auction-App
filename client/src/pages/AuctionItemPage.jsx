@@ -51,14 +51,6 @@ function AuctionItemPage() {
         fetchBids();
     }, [currentPrice]);
 
-    // async function updateHasEndedOnClick () {
-    //     try {
-    //         await updateHasEnded()
-    //     } catch (error) {
-    //         console.error('Error on updating hasEnded before inserting bid', error)
-    //     }
-    // }
-
     async function insertBid (uid, item_id) {
         
         try {
