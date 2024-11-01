@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,6 +35,7 @@ function AuctionCreation() {
     const descriptionChecked = description ? description : 'No description provided.'
     const image = file.name ? file.name : 'No-Image-Available.jpg';
     entriesWithUID.file = image;
+    entriesWithUID.price = entriesWithUID.price*100;
 
     // converting end_time to db time format
     const utcDateTime = end_time ? new Date(end_time)?.toISOString() : null;

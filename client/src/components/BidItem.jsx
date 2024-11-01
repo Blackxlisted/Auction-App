@@ -1,9 +1,9 @@
 import React from 'react'
 
-function BidItem({ id, uid, item_id, amount_bid, time_bid }) {
+function BidItem({ id, uid, item_id, amount_bid, time_bid, name }) {
   return (
     <div>
-        User {uid} bid £{amount_bid/100} at {time_bid}
+        {name} bid £{amount_bid/100} at {time_bid}
     </div>
   )
 }

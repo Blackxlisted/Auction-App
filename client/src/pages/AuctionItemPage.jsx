@@ -9,6 +9,7 @@ import axios from 'axios';
 function AuctionItemPage() {
   const { user } = useAuth0();
   const sub = user?.sub;
+  const name = user?.name;
   const { id } = useParams();
   const [auctionInfo, setAuctionInfo] = useState({});
   const [image, setImage] = useState(null);
@@ -98,13 +99,13 @@ function AuctionItemPage() {
                 ) :
                 (   
                     
-                    <button className='btn' onClick={() => insertBid(auctionInfo.uid, auctionInfo.id)}>Place bid</button>
+                    <button className='btn' onClick={() => insertBid(sub, auctionInfo.id)}>Place bid</button>
                 )
             }
         </div>
         <section>
             <div>
-                <BidsCatalogue bids={bids} itemInfo={auctionInfo} userID={sub} />
+                <BidsCatalogue bids={bids} itemInfo={auctionInfo} userID={sub} name={name} />
             </div>
         </section>
     </>
