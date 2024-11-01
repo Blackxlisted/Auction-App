@@ -4,6 +4,11 @@ import './index.css'
 import { store } from './store.js';
 import { Provider } from 'react-redux';
 import { Auth0Provider } from '@auth0/auth0-react';
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+
+
+TimeAgo.addDefaultLocale(en)
 
 const AUTH0_DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
 const AUTH0_CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID;
