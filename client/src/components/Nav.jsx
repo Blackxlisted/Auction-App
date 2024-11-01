@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import Hamburger from "../assets/hamburger-menu.svg";
+import logo from '../assets/logo1.png';
 import { NavLink } from 'react-router-dom';
 import UserContainer from "./UserContainer";
 import { useDispatch, useSelector} from 'react-redux';
@@ -33,6 +34,9 @@ const Nav = ()  => {
             </div>
             {/* flex flex-row gap-4 p-4 fixed right-6 top-6 items-center */}
             <ul className= {`nav ${toggle ? 'show' : 'hide'} nav-menu`}>
+                <div >
+                    <img src={logo} alt="" />
+                </div>
                 <li> <NavLink to='/' className='link'>
                 Home</NavLink> </li>
                 <li> <NavLink to='/create-auction' className='link'>
