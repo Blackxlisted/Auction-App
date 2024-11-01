@@ -11,6 +11,8 @@ exports.up = function(knex) {
         table.dateTime("time_bid").notNullable().defaultTo(
             knex.raw("NOW()")
         );
+        table.dateTime("item_end_time").notNullable();
+        table.boolean('hasEnded').notNullable().defaultTo(false);
     })
 };
 

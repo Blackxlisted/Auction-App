@@ -20,7 +20,7 @@ function BidsCatalogue({ bids, itemInfo, userID, name }) {
                             item_id={item_id} 
                             amount_bid={amount_bid} 
                             time_bid={time_bid}
-                            name={name} 
+                            name={name}
                         />
                     );
             })))

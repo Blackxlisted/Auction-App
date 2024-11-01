@@ -1,6 +1,10 @@
 import axios from 'axios';
 const AUCTIONS_ENDPOINT = 'http://localhost:5005/api/auctions';
 const BIDS_ENDPOINT = 'http://localhost:5005/api/bids';
+const UPDATE_HASENDED_ENDPOINT = 'http://localhost:5005/api/bids/updateHasEnded';
+
+// trigger functions 
+// (will trigger the controller functions that are mounted on the relevant url endpoints)
 
 export const getAuctions = async () => {
     try {
@@ -20,7 +24,7 @@ export const getAuctionItem = async (id) => {
         console.log(item);      
         return item;
     } catch (error) {
-        console.error('Error fetching auctions from backend server', error);
+        console.error('Error fetching auction item from backend server', error);
     }
 };
 
@@ -39,6 +43,15 @@ export const getBidsByItemId = async (item_id) => {
         return response.data;
     } catch (error) {
         console.error('Error retrieving bids by dynamic id', error);
+    }
+}
+
+export const updateHasEnded = async () => {
+    try {
+        const response = await axios.get(UPDATE_HASENDED_ENDPOINT);
+        return response.data;
+    } catch (error) {
+        console.error('Error on updating columns hasEnded of bids table', error);
     }
 }
 

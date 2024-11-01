@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAuctionItem, getBids, getBidsByItemId } from '../api/api.js'
+import { getAuctionItem, getBids, getBidsByItemId, updateHasEnded } from '../api/api.js'
 import { useParams } from 'react-router-dom';
 import { loadImage } from '../utils/utils.js';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -14,7 +14,7 @@ function AuctionItemPage() {
   const [auctionInfo, setAuctionInfo] = useState({});
   const [image, setImage] = useState(null);
   const [bids, setBids] = useState([]);
-  const BIDS_URL = 'http://localhost:5005/api/bids/add';
+  const ADD_BID_URL = 'http://localhost:5005/api/bids/add';
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
@@ -51,19 +51,28 @@ function AuctionItemPage() {
         fetchBids();
     }, [currentPrice]);
 
+    // async function updateHasEndedOnClick () {
+    //     try {
+    //         await updateHasEnded()
+    //     } catch (error) {
+    //         console.error('Error on updating hasEnded before inserting bid', error)
+    //     }
+    // }
+
     async function insertBid (uid, item_id) {
+        
         try {
             console.log('bids,', bids);
             // preset bid increment set here
-            const amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0) 
+            const amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0)
             ? Math.ceil(currentPrice * 1.1) 
             : Math.ceil(auctionInfo.price * 1.1);
-
             setCurrentPrice(amount_bid);
-            const entries = {uid, item_id, amount_bid};
+            const item_end_time = auctionInfo.end_time; 
+            const entries = {uid, item_id, amount_bid, item_end_time};
             console.log('entries', entries)
             axios
-                .post(BIDS_URL, entries)
+                .post(ADD_BID_URL, entries)
                 .then((response) => {
                     console.log(response.data);
                     console.log(response);
@@ -76,7 +85,7 @@ function AuctionItemPage() {
         }
         
     }
-    console.log('auctioninfo.price', auctionInfo.price*1.1)
+
   return (
     <>
         <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
@@ -99,7 +108,7 @@ function AuctionItemPage() {
                 ) :
                 (   
                     
-                    <button className='btn' onClick={() => insertBid(sub, auctionInfo.id)}>Place bid</button>
+                    <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid</button>
                 )
             }
         </div>

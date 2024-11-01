@@ -1,4 +1,4 @@
-import { getAllBids, insertBid, getBidsByItemId } from "../models/bids.js";
+import { getAllBids, insertBid, getBidsByItemId, updateHasEnded } from "../models/bids.js";
 
 const getBids = async (req, res) => {
     try {
@@ -25,8 +25,8 @@ const insertToBids = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { uid, item_id, amount_bid, time_bid } = body;
-        await insertBid(uid, item_id, amount_bid, time_bid);
+        const { uid, item_id, amount_bid, time_bid, item_end_time } = body;
+        await insertBid(uid, item_id, amount_bid, time_bid, item_end_time);
         return res.status(201).json({ message: 'Auction created successfully' });
     } catch (error) {
         console.error(error); // for debugging
