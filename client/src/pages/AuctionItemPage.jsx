@@ -42,6 +42,7 @@ function AuctionItemPage() {
                 const bidsObject = await getBidsByItemId(id);
                 console.log(bidsObject)
                 setBids(bidsObject);
+                setCurrentPrice(bidsObject[0]?.amount_bid);
             } catch (error) {
                 console.error(error);
             }
@@ -52,8 +53,11 @@ function AuctionItemPage() {
     async function insertBid (uid, item_id) {
         try {
             console.log('bids,', bids);
-            //bids.find((bid => bid. ==== ))
-            const amount_bid = currentPrice === 0 ? Math.ceil(auctionInfo.price*1.1) : Math.ceil(currentPrice*1.1);
+            // preset bid increment set here
+            const amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0) 
+            ? Math.ceil(currentPrice * 1.1) 
+            : Math.ceil(auctionInfo.price * 1.1);
+
             setCurrentPrice(amount_bid);
             const entries = {uid, item_id, amount_bid};
             console.log('entries', entries)
