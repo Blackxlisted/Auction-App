@@ -32,3 +32,13 @@ export const getBids = async () => {
         console.error('Error retrieving bids', error);
     }
 }
+
+export const getBidsByItemId = async (item_id) => {
+    try {
+        const response = await axios.get(`${BIDS_ENDPOINT}/${item_id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving bids by dynamic id', error);
+    }
+}
+

@@ -8,7 +8,9 @@ exports.up = function(knex) {
         table.string("uid", 100).notNullable();
         table.integer("item_id").notNullable();
         table.integer("amount_bid").notNullable();
-        table.dateTime("time_bid").notNullable();
+        table.dateTime("time_bid").notNullable().defaultTo(
+            knex.raw("NOW()")
+        );
     })
 };
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { getAuctionItem, getBids } from '../api/api.js'
+import { getAuctionItem, getBids, getBidsByItemId } from '../api/api.js'
 import { useParams } from 'react-router-dom';
 import { loadImage } from '../utils/utils.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import BidsCatalogue from '../components/BidsCatalogue.jsx';
+import axios from 'axios';
 
 function AuctionItemPage() {
   const { user } = useAuth0();
@@ -12,6 +13,8 @@ function AuctionItemPage() {
   const [auctionInfo, setAuctionInfo] = useState({});
   const [image, setImage] = useState(null);
   const [bids, setBids] = useState([]);
+  const BIDS_URL = 'http://localhost:5005/api/bids/add';
+  const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
    
@@ -33,21 +36,42 @@ function AuctionItemPage() {
     
   }, [id]);
 
-  useEffect(() => {
-    async function fetchBids() {
+    useEffect(() => {
+        async function fetchBids() {
+            try {
+                const bidsObject = await getBidsByItemId(id);
+                console.log(bidsObject)
+                setBids(bidsObject);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBids();
+    }, [currentPrice]);
+
+    async function insertBid (uid, item_id) {
         try {
-            const bidsObject = await getBids();
-            console.log(bidsObject)
-            setBids(bidsObject);
+            console.log('bids,', bids);
+            //bids.find((bid => bid. ==== ))
+            const amount_bid = currentPrice === 0 ? Math.ceil(auctionInfo.price*1.1) : Math.ceil(currentPrice*1.1);
+            setCurrentPrice(amount_bid);
+            const entries = {uid, item_id, amount_bid};
+            console.log('entries', entries)
+            axios
+                .post(BIDS_URL, entries)
+                .then((response) => {
+                    console.log(response.data);
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching bids insertBid()', error);
         }
-    };
-    fetchBids();
-  }, []);
-
-
-
+        
+    }
+    console.log('auctioninfo.price', auctionInfo.price*1.1)
   return (
     <>
         <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
@@ -65,11 +89,18 @@ function AuctionItemPage() {
             </div>            
         </div>
         <div>
-            {sub === auctionInfo.uid ? (<h3>Current Bids</h3>): (<button className='btn'>Place bid</button>)}
+            {sub === auctionInfo.uid ? (
+                    <h3>Current Bids</h3>
+                ) :
+                (   
+                    
+                    <button className='btn' onClick={() => insertBid(auctionInfo.uid, auctionInfo.id)}>Place bid</button>
+                )
+            }
         </div>
         <section>
             <div>
-                <BidsCatalogue bids={bids} itemInfo={auctionInfo}/>
+                <BidsCatalogue bids={bids} itemInfo={auctionInfo} userID={sub} />
             </div>
         </section>
     </>

@@ -12,8 +12,18 @@ const getAllBids = async () => {
     return results;
 }
 
+const getBidsByItemId = async (item_id) => {
+    const results = await db
+        .select('*')
+        .from('bids')
+        .where('item_id', item_id)
+        .orderBy([{column: 'time_bid', order: 'desc'}])
+    console.log(results)
+    return results;
+}
+
 const insertBid = async (uid, item_id, amount_bid, time_bid) => {
-    await db('auctions')
+    await db('bids')
         .insert({
             uid: uid,
             item_id: item_id,
@@ -21,4 +31,4 @@ const insertBid = async (uid, item_id, amount_bid, time_bid) => {
             time_bid: time_bid
         })
 }
-export { getAllBids, insertBid }
+export { getAllBids, insertBid, getBidsByItemId }

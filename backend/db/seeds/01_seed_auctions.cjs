@@ -7,7 +7,7 @@ exports.seed = async function(knex) {
   await knex('auctions').del()
   await knex('auctions').insert([
     {
-      title: 'Headphones', description: 'Barely used modern headphones for cheap!', price: 10000, 
+      uid: 'test_id', title: 'Headphones', description: 'Barely used modern headphones for cheap!', price: 10000, 
       image: "adv-web-headphones.jpg", end_time: '2024-10-30 15:00:00+02'
     },
   ]);

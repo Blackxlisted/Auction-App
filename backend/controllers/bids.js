@@ -1,8 +1,19 @@
-import { getAllBids, insertBid } from "../models/bids.js";
+import { getAllBids, insertBid, getBidsByItemId } from "../models/bids.js";
 
 const getBids = async (req, res) => {
     try {
         const bids = await getAllBids();
+        return res.status(200).json(bids);
+    } catch (error) {
+        console.error(error); // debug
+        return res.status(500).json(error);  // neat error handler
+    }
+}
+
+const getBidsByItemIdController = async (req, res) => {
+    try {
+        const item_id = req.params.id;
+        const bids = await getBidsByItemId(item_id);
         return res.status(200).json(bids);
     } catch (error) {
         console.error(error); // debug
@@ -23,4 +34,4 @@ const insertToBids = async (req, res) => {
     }
 }
 
-export { getBids, insertToBids }
+export { getBids, insertToBids, getBidsByItemIdController }

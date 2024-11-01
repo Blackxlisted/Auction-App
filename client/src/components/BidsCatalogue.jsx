@@ -1,7 +1,7 @@
 import React from 'react'
 import BidItem from './BidItem';
 
-function BidsCatalogue({ bids, itemInfo }) {
+function BidsCatalogue({ bids, itemInfo, userID }) {
     const { id } = itemInfo;
     
     
@@ -16,7 +16,7 @@ function BidsCatalogue({ bids, itemInfo }) {
                         <BidItem
                             key={id}
                             id={id} 
-                            uid={uid} 
+                            uid={userID} 
                             item_id={item_id} 
                             amount_bid={amount_bid} 
                             time_bid={time_bid} 
