@@ -35,7 +35,6 @@ const insertBid = async (uid, item_id, amount_bid, time_bid, item_end_time) => {
 
 const updateHasEnded = async () => {
     const currentTime = new Date().toISOString();
-    console.log(currentTime);
     await db('bids')
       .where('item_end_time', '<', currentTime)
       .andWhere('hasEnded', false)

@@ -1,4 +1,4 @@
-import { getAllBids, insertBid, getBidsByItemId, updateHasEnded } from "../models/bids.js";
+import { getAllBids, insertBid, getBidsByItemId } from "../models/bids.js";
 
 const getBids = async (req, res) => {
     try {

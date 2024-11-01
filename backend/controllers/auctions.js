@@ -1,4 +1,4 @@
-import { getAllAuctions, insertAuction } from '../models/auctions.js';
+import { getAllAuctions, insertAuction, getAuctionById } from '../models/auctions.js';
 
 
 const getAuctions = async (req, res) => {
@@ -11,6 +11,17 @@ const getAuctions = async (req, res) => {
         
     }
 } 
+
+const getAuctionByIdController = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const auctionItem = await getAuctionById(id);
+        return res.status(200).json(auctionItem);
+    } catch (error) {
+        console.error(error); // debug
+        return res.status(500).json(error);  // neat error handler
+    }
+}
 
 const insertToAuctions = async (req, res) => {
     try {
@@ -29,4 +40,4 @@ const insertToAuctions = async (req, res) => {
 };
 
 
-export { getAuctions, insertToAuctions }
+export { getAuctions, insertToAuctions, getAuctionByIdController }
