@@ -6,19 +6,19 @@ function UserContainer({ user, login, logout }) {
         {user ? 
             (
                 <>
-                    <li className='!no-underline grid grid-cols-[1fr_auto] items-center gap-2'>
+                    <div className='!no-underline grid grid-cols-[1fr_auto] items-center gap-2'>
                         Hello, {user?.name}
                         <img src={user?.picture} className='w-6 rounded-sm'/>
-                    </li>
+                    </div>
                     <button onClick={() => {
                         logout({ returnTo: window.location.origin });
-                    }} className='btn'>Logout</button>
+                    }} className=' hover:bg-gray-200 hover:font-bold active:bg-gray-300 active:font-bold'>Logout</button>
                 </>
             ) :
             (
-                <li>
-                    <button onClick={login} className='btn'>Login</button>
-                </li>
+                <div>
+                    <button onClick={login} className=' hover:bg-gray-200 hover:font-bold active:bg-gray-300 active:font-bold'>Login</button>
+                </div>
             )
 
         }

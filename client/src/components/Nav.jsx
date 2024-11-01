@@ -31,14 +31,17 @@ const Nav = ()  => {
 
                 <img src={Hamburger} alt="menu-icon" className="menu-icon w-10 absolute top-5 right-5"></img>
             </div>
-            <ul className= {`nav ${toggle ? 'show' : 'hide'} flex flex-row gap-4 p-4 fixed right-6 top-6 items-center`}>
-                <li> <NavLink to='/' className='link w-10'>
+            {/* flex flex-row gap-4 p-4 fixed right-6 top-6 items-center */}
+            <ul className= {`nav ${toggle ? 'show' : 'hide'} nav-menu`}>
+                <li> <NavLink to='/' className='link'>
                 Home</NavLink> </li>
                 <li> <NavLink to='/create-auction' className='link'>
                 Create Auction</NavLink> </li>
                 <li> <NavLink to='/auctions' className='link'>
                 Auctions</NavLink> </li>
-                <UserContainer user={user} login={loginWithRedirect} logout={logout} />
+                <div className="nav-login-auction-cart">
+                    <UserContainer user={user} login={loginWithRedirect} logout={logout} />
+                  </div>            
             </ul>
         </nav>
     );
