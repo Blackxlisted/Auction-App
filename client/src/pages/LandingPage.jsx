@@ -2,8 +2,11 @@ import React from 'react'
 import hero1 from '../assets/hero1.png'
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
+import { notificationToast } from '../notification_toast/notificationToast';
+
 
 const LandingPage = () => {
+  
   const { user, loginWithRedirect } = useAuth0();
   const sub = user?.sub;
   return (
@@ -19,6 +22,8 @@ const LandingPage = () => {
             <p>Items</p>
             <p>for Everyone</p>
         </div>
+        <button onClick={notificationToast}>Toast me herrrrree</button>
+        
         <div className="hero-latest-btn"> 
           {sub ? (
               <Link to='/auctions'>
