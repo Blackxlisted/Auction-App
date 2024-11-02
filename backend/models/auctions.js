@@ -32,6 +32,12 @@ const updateAuctionHasEnded = async () => {
       .update({ hasEnded: true });
 }
 
+const updateAuctionHighestBid = async (id, highest_bid) => {
+    await db('auctions')
+        .where('id', id)
+        .update({ highest_bid: highest_bid })
+}
+
 const getAuctionById = async (id) => {
     const results = await db
         .select('*')
@@ -41,4 +47,4 @@ const getAuctionById = async (id) => {
     return results;
 }
 
-export { getAllAuctions, insertAuction, updateAuctionHasEnded, getAuctionById }
+export { getAllAuctions, insertAuction, updateAuctionHasEnded, getAuctionById, updateAuctionHighestBid }

@@ -1,4 +1,4 @@
-import { getAllAuctions, insertAuction, getAuctionById } from '../models/auctions.js';
+import { getAllAuctions, insertAuction, getAuctionById, updateAuctionHighestBid } from '../models/auctions.js';
 
 
 const getAuctions = async (req, res) => {
@@ -23,6 +23,18 @@ const getAuctionByIdController = async (req, res) => {
     }
 }
 
+const updateAuctionHighestBidController = async (req, res) => { // no res.status to avoid headers_sent error
+    try {
+        const { item_id, amount_bid } = req.body;
+        await updateAuctionHighestBid(item_id, amount_bid);
+        //return res.status(200).json({message: 'Auction highest_bid successfully updated'});
+    }
+    catch (error) {
+        console.error(error) // debug
+        //return res.status(500).json({ error: 'Error update auction highest_bid' }); // neat error handler
+    };
+}
+
 const insertToAuctions = async (req, res) => {
     try {
         const body = req.body;
@@ -40,4 +52,4 @@ const insertToAuctions = async (req, res) => {
 };
 
 
-export { getAuctions, insertToAuctions, getAuctionByIdController }
+export { getAuctions, insertToAuctions, getAuctionByIdController, updateAuctionHighestBidController }

@@ -49,6 +49,7 @@ const AuctionItem = ({ auctionsInfo }) => {
                 <div>
                     {/* shortened description: starting price, end date */}
                     <p> Starting at: £{(auctionInfo.price)/100} </p>
+                    {auctionInfo.highest_bid !== 0 && auctionInfo.highest_bid ? (<p> Current highest bid: £{auctionInfo.highest_bid/100}</p>) : (<p>No bids yet</p>)}
                     <p> Ends on: {auctionInfo.end_time} </p>
                 </div>
                 {auctionInfo.uid === sub ? (

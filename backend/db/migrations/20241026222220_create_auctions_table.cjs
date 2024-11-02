@@ -13,6 +13,7 @@ exports.up = function(knex) {
     table.dateTime("end_time").notNullable().defaultTo(
       knex.raw("NOW() + INTERVAL '1 day'")
     );
+    table.integer("highest_bid");
     table.boolean('hasEnded').notNullable().defaultTo(false);
   })
 };
