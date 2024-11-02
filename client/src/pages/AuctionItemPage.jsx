@@ -5,6 +5,7 @@ import { loadImage } from '../utils/utils.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import BidsCatalogue from '../components/BidsCatalogue.jsx';
 import axios from 'axios';
+import ReactTimeAgo from 'react-time-ago'
 
 function AuctionItemPage() {
   const { user } = useAuth0();
@@ -91,7 +92,12 @@ function AuctionItemPage() {
             <div>
                 {/* full description */}
                 <p> Starting at: £{(auctionInfo.price)/100} </p>
-                <p> Ends on: {auctionInfo.end_time} </p>
+                {auctionInfo.end_time ? 
+                (
+                    auctionInfo.hasEnded ? (<p>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                    : (<p> Ends <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                )
+                : (<></>)}
                 <p> {auctionInfo.description} </p>
             </div>            
         </div>

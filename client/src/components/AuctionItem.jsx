@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { loadImage } from '../utils/utils';
-
+import ReactTimeAgo from 'react-time-ago'
 
 const AuctionItem = ({ auctionsInfo }) => {
     const { user } = useAuth0();
@@ -49,13 +49,23 @@ const AuctionItem = ({ auctionsInfo }) => {
                 <div>
                     {/* shortened description: starting price, end date */}
                     <p> Starting at: £{(auctionInfo.price)/100} </p>
-                    {auctionInfo.highest_bid !== 0 && auctionInfo.highest_bid ? (<p> Current highest bid: £{auctionInfo.highest_bid/100}</p>) : (<p>No bids yet</p>)}
-                    <p> Ends on: {auctionInfo.end_time} </p>
+                    {auctionInfo.highest_bid !== 0 && auctionInfo.highest_bid ?
+                     (<p> Current highest bid: £{auctionInfo.highest_bid/100}</p>) : auctionInfo.hasEnded ?
+                     (<p>Auction ended</p>) :
+                     (<p>No bids yet</p>)
+                    }
+                    {console.log(auctionInfo.end_time)}
+                    {
+                      auctionInfo.end_time ? (
+                        auctionInfo.hasEnded ? (<p>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                        : (<p> Ends <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                      ) : (<></>)
+                    }
                 </div>
-                {auctionInfo.uid === sub ? (
-                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`}> View your auction </Link> </button>
+                {auctionInfo.uid === sub ? ( // checks if auction belongs to logged in user
+                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`} className='block w-[100%]'> View your auction </Link> </button>
                   ) : (
-                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`}> View auction </Link> </button>
+                    <button className='btn'> <Link to={`/auctions/${auctionInfo.id}`} className='block w-[100%]'> View auction </Link> </button>
                   )
                 }
                 
