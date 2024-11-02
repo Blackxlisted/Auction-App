@@ -65,11 +65,11 @@ function AuctionCreation() {
     <form className='grid grid-rows-1 gap-4 mx-[40%]' onSubmit={handleSubmit} ref={formRef}>
         <h3> Create auction</h3>
         <label htmlFor='title'></label>
-        <input type="text" id='title' name='title' />
+        <input type="text" placeholder='Enter your title' id='title' name='title' />
         <label htmlFor='description'></label>
-        <input type="text" id='description' name='description' />
+        <input type="text" placeholder='Description' id='description' name='description' />
         <label htmlFor='price'></label>
-        <input type="number" id='price' name='price' />
+        <input type="number" placeholder='Set your starting price' id='price' name='price' />
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>

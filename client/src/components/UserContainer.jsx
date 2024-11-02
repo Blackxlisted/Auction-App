@@ -8,7 +8,7 @@ function UserContainer({ user, login, logout }) {
                 <>
                     <div className='!no-underline grid grid-cols-[1fr_auto] items-center gap-2'>
                         Hello, {user?.name}
-                        <img src={user?.picture} className='w-6 rounded-sm'/>
+                        <img src={user?.picture} className='w-10 rounded-sm'/>
                     </div>
                     <button onClick={() => {
                         logout({ returnTo: window.location.origin });
