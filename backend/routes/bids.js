@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    updateHasEnded(req, res);
+    updateAuctionHasEnded(req, res);
     getBidsByItemIdController(req, res);
 });
 

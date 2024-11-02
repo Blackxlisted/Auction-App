@@ -61,7 +61,8 @@ function AuctionItemPage() {
             : Math.ceil(auctionInfo.price * 1.1);
             setCurrentPrice(amount_bid);
             const item_end_time = auctionInfo.end_time; 
-            const entries = {uid, item_id, amount_bid, item_end_time};
+            const hasEnded = auctionInfo.hasEnded;
+            const entries = {uid, item_id, amount_bid, item_end_time, hasEnded};
             console.log('entries', entries)
             axios
                 .post(ADD_BID_URL, entries)
@@ -97,9 +98,10 @@ function AuctionItemPage() {
         <div>
             {sub === auctionInfo.uid ? (
                     <h3>Current Bids</h3>
-                ) :
-                (   
-                    
+                ) : auctionInfo.hasEnded == true ?
+                (                     
+                    <h3>Auction expired</h3>
+                ) : (
                     <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid</button>
                 )
             }
