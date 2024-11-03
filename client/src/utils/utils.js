@@ -1,8 +1,8 @@
-export const loadImage = async (imageName, path) => {
+export const loadImage = async (imageName) => {
     try {
         if (imageName.endsWith('.jpg')) {
             imageName = imageName.slice(0, -4);
-            const imageModule = await import(`${path}${imageName}.jpg`);
+            const imageModule = await import(`../assets/${imageName}.jpg`);
             return imageModule.default;
         }
         

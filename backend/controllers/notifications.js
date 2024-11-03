@@ -4,9 +4,8 @@ const insertUserToNotisController = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { uid, item_id, outbid_price, time_bid, title, image } = body;
-        console.log(outbid_price);
-        await insertUserToNotis(uid, item_id, outbid_price, time_bid, title, image);
+        const { uid, item_id, outbid_price, time_bid, title, image, name } = body;
+        await insertUserToNotis(uid, item_id, outbid_price, time_bid, title, image, name);
         return res.status(201).json({ message: 'Insertion of data to notifications success' });
     } catch (error) {
         if (error === '23505') {

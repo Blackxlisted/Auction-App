@@ -48,6 +48,9 @@ export const router = createBrowserRouter([
 
 
 function PrivateRoute({ children }) {
-    const { isAuthenticated } = useAuth0();
+    const { isLoading, isAuthenticated } = useAuth0();
+    if (isLoading) {
+        return <div>Loading...</div>;  // Optional: Display a loading indicator
+    }
     return isAuthenticated ? children : <Navigate to="/"/>;
 }

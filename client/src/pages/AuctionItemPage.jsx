@@ -27,7 +27,7 @@ function AuctionItemPage() {
             setAuctionInfo(item);
             console.log(item);
             console.log(item.image);
-            const importedImage = await loadImage(item.image, '../assets/');
+            const importedImage = await loadImage(item.image);
             console.log(importedImage);
             setImage(importedImage);
         } catch (error) {
@@ -87,9 +87,10 @@ function AuctionItemPage() {
                     };
                 }));
             };
+            const name = user?.name;
             if (usersToNotify) {
                 usersToNotify.map(uid => {
-                    const notis_data = { uid, item_id, outbid_price, time_bid, title, image }
+                    const notis_data = { uid, item_id, outbid_price, time_bid, title, image, name }
                     axios
                         .post(ADD_NOTIS_URL, notis_data)
                         .then((response) => {

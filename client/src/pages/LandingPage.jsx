@@ -33,9 +33,9 @@ const LandingPage = () => {
     if (notifications)
       {
         notifications.map(async (item) => {
-          const image = await loadImage(item.image, '../assets/');
-          const { title, outbid_price, time_bid, item_id } = item;
-          notificationToast(sub, item_id, title, image, outbid_price, time_bid);
+          const image = await loadImage(item.image);
+          const { title, outbid_price, time_bid, item_id, name } = item;
+          notificationToast(sub, item_id, title, image, outbid_price, time_bid, name);
         })
       }
   }
@@ -46,7 +46,7 @@ const LandingPage = () => {
   return (
     <div className='hero'>
       <div className="hero-left">
-        <h2>Every product, just one click away!</h2>
+        <h2>Bid, win, own—just one click away!</h2>
         <div>
             <div className="hero-hand-icon">
                 <p>
