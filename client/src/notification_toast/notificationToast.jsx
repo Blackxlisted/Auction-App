@@ -1,6 +1,9 @@
 import toast from 'react-hot-toast';
 
-export const notificationToast = () => {toast.custom((t) => (
+async function notificationToast( uid, item_id, title, image, outbid_price, time_bid ) {
+  const url = `/auctions/${item_id}`;
+
+  toast.custom((t) => (
     <div
       className={`${
         t.visible ? 'animate-enter' : 'animate-leave'
@@ -11,16 +14,16 @@ export const notificationToast = () => {toast.custom((t) => (
           <div className="flex-shrink-0 pt-0.5">
             <img
               className="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+              src={image}
               alt=""
             />
           </div>
           <div className="ml-3 flex-1">
             <p className="text-sm font-medium text-gray-900">
-              Emilia Gates
+              {title}
             </p>
             <p className="mt-1 text-sm text-gray-500">
-              Sure! 8:30pm works great!
+              You were outbid on <a href={url} className='text-indigo-600 hover:text-indigo-500'>this</a> item
             </p>
           </div>
         </div>
@@ -34,5 +37,7 @@ export const notificationToast = () => {toast.custom((t) => (
         </button>
       </div>
     </div>
-  ), { duration: 0 });
+  ));
 }
+
+export { notificationToast }

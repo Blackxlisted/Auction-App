@@ -16,6 +16,7 @@ function AuctionItemPage() {
   const [image, setImage] = useState(null);
   const [bids, setBids] = useState([]);
   const ADD_BID_URL = 'http://localhost:5005/api/bids/add';
+  const ADD_NOTIS_URL = 'http://localhost:5005/api/notifications/add';
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function AuctionItemPage() {
             setAuctionInfo(item);
             console.log(item);
             console.log(item.image);
-            const importedImage = await loadImage(item.image);
+            const importedImage = await loadImage(item.image, '../assets/');
             console.log(importedImage);
             setImage(importedImage);
         } catch (error) {
@@ -69,11 +70,39 @@ function AuctionItemPage() {
                 .post(ADD_BID_URL, entries)
                 .then((response) => {
                     console.log(response.data);
-                    console.log(response);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+            
+            const time_bid = new Date();
+            const { title, image } = auctionInfo;
+            const outbid_price = amount_bid;
+            const usersToNotify = [];
+            if (bids) {
+                bids.map((bid => {
+                    console.log(bid.uid, uid);
+                    if (bid.uid !== uid) {
+                        usersToNotify.push(bid.uid);
+                    };
+                }));
+            };
+            if (usersToNotify) {
+                usersToNotify.map(uid => {
+                    const notis_data = { uid, item_id, outbid_price, time_bid, title, image }
+                    axios
+                        .post(ADD_NOTIS_URL, notis_data)
+                        .then((response) => {
+                            console.log(response.data);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                });
+            };
+            
+            
+            
         } catch (error) {
             console.error('Error fetching bids insertBid()', error);
         }
@@ -107,9 +136,9 @@ function AuctionItemPage() {
                 ) : auctionInfo.hasEnded == true ?
                 (                     
                     <h3>Auction expired</h3>
-                ) : (
+                ) : bids[0]?.uid !== sub ? (
                     <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid</button>
-                )
+                ) : (<p>You hold highest bid</p>)
             }
         </div>
         <section>

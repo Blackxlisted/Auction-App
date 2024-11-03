@@ -3,12 +3,46 @@ import hero1 from '../assets/hero1.png'
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { notificationToast } from '../notification_toast/notificationToast';
+import axios from 'axios';
+import { loadImage } from '../utils/utils';
 
 
 const LandingPage = () => {
   
   const { user, loginWithRedirect } = useAuth0();
   const sub = user?.sub;
+  console.log(sub);
+
+  const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid'
+  const getNotis = async () => {
+    try {
+      const response = await axios.get(`${NOTIS_ENDPOINT}`, {
+          headers: {
+              'uid': sub
+          }
+      });
+      console.log('Notifications:', response.data);
+      return response.data;
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+    };
+  };
+  
+  const sendNotis = async () => {
+    const notifications = sub ? await getNotis() : '';
+    if (notifications)
+      {
+        notifications.map(async (item) => {
+          const image = await loadImage(item.image, '../assets/');
+          const { title, outbid_price, time_bid, item_id } = item;
+          notificationToast(sub, item_id, title, image, outbid_price, time_bid);
+        })
+      }
+  }
+  
+  sendNotis();
+  
+
   return (
     <div className='hero'>
       <div className="hero-left">
@@ -22,7 +56,7 @@ const LandingPage = () => {
             <p>Items</p>
             <p>for Everyone</p>
         </div>
-        <button onClick={notificationToast}>Toast me herrrrree</button>
+        {/* <button onClick={() => {notificationToast(sub)}}>Toast me herrrrree</button> */}
         
         <div className="hero-latest-btn"> 
           {sub ? (

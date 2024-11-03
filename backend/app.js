@@ -1,6 +1,7 @@
 import express from 'express';
 import AuctionsRouter from './routes/auctions.js';
 import BidsRouter from './routes/bids.js';
+import NotificationsRouter from './routes/notifications.js'
 import cors from 'cors';
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 // routes
 app.use('/api/auctions', AuctionsRouter);
 app.use('/api/bids', BidsRouter);
+app.use('/api/notifications', NotificationsRouter);
 
 // middleware error handler
 app.use((req, res) => {

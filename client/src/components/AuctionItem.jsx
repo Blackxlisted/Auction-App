@@ -19,7 +19,7 @@ const AuctionItem = ({ auctionsInfo }) => {
           try {
             const url = auctionInfo.image;
             const id = auctionInfo.id;
-            const imageModule = await loadImage(url);
+            const imageModule = await loadImage(url, '../assets/');
             localImages[id] = imageModule;
           } catch (error) {
             console.error(error);

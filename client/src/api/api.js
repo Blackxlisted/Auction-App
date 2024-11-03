@@ -1,7 +1,11 @@
 import axios from 'axios';
+import { store } from '../store.js';
+
+
 const AUCTIONS_ENDPOINT = 'http://localhost:5005/api/auctions';
 const BIDS_ENDPOINT = 'http://localhost:5005/api/bids';
 const UPDATE_HASENDED_ENDPOINT = 'http://localhost:5005/api/bids/updateHasEnded';
+const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid'
 
 // trigger functions 
 // (will trigger the controller functions that are mounted on the relevant url endpoints)
@@ -54,4 +58,17 @@ export const updateHasEnded = async () => {
         console.error('Error on updating columns hasEnded of bids table', error);
     }
 }
+
+// export const getNotisByUidController = async (uid) => {
+//     try {
+//         const response = await axios.get(NOTIS_ENDPOINT, {
+//             headers: {
+//                 'uid': uid
+//             }
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error on getting notifications endpoint', error);
+//     }
+// }
 
