@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-//import { deleteNotification } from '../api/api';
+import ReactTimeAgo from 'react-time-ago'
 const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
 import axios from 'axios';
 
@@ -33,12 +33,14 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
             <p className="text-sm font-medium text-gray-900">
               {title}
             </p>
+            <p className='text-sm text-gray-600 absolute right-[329px] top-[5px]'><ReactTimeAgo date={Date.parse(time_bid)} locale="en-GB"/></p>
             <p className="mt-1 text-sm text-gray-500">
               You were outbid on <a href={url} className='text-indigo-600 hover:text-indigo-500'>this</a> item by <span className='text-gray-600'>{name}</span>
             </p>
             <p className="mt-0 text-sm text-gray-500">
               Current bid: <span className='text-gray-600'>£{outbid_price/100}</span>
             </p>
+            
           </div>
         </div>
       </div>
@@ -51,7 +53,7 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
         </button>
       </div>
     </div>
-  ));
+  ), );
 }
 
 export { notificationToast }
