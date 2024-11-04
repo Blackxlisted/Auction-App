@@ -64,7 +64,7 @@ function AuctionItemPage() {
             setCurrentPrice(amount_bid);
             const item_end_time = auctionInfo.end_time; 
             const hasEnded = auctionInfo.hasEnded;
-            const entries = {uid, item_id, amount_bid, item_end_time, hasEnded};
+            const entries = {uid, name, item_id, amount_bid, item_end_time, hasEnded};
             console.log('entries', entries)
             axios
                 .post(ADD_BID_URL, entries)
@@ -88,7 +88,6 @@ function AuctionItemPage() {
                 }));
             };
             const usersToNotify = [...usersToNotifySet];
-            const name = user?.name;
             if (usersToNotify) {
                 usersToNotify.map(uid => {
                     const notis_data = { uid, item_id, outbid_price, time_bid, title, image, name }
@@ -139,13 +138,13 @@ function AuctionItemPage() {
                 (                     
                     <h3>Auction expired</h3>
                 ) : bids[0]?.uid !== sub ? (
-                    <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid</button>
+                    <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid {currentPrice ? ((currentPrice*1.1)/100).toFixed(2) : ((auctionInfo.price*1.1)/100).toFixed(2)}</button>
                 ) : (<p>You hold highest bid</p>)
             }
         </div>
         <section>
             <div>
-                <BidsCatalogue bids={bids} itemInfo={auctionInfo} userID={sub} name={name} />
+                <BidsCatalogue bids={bids} itemInfo={auctionInfo} />
             </div>
         </section>
     </>

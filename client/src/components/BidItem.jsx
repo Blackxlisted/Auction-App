@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactTimeAgo from 'react-time-ago'
 
-function BidItem({ id, uid, item_id, amount_bid, time_bid, name }) {
+function BidItem({ id, item_id, amount_bid, time_bid, name }) {
     const date = new Date(time_bid);
   return (
     <div>

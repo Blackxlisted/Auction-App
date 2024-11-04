@@ -22,10 +22,11 @@ const getBidsByItemId = async (item_id) => {
     return results;
 }
 
-const insertBid = async (uid, item_id, amount_bid, time_bid, item_end_time) => {
+const insertBid = async (uid, name, item_id, amount_bid, time_bid, item_end_time) => {
     await db('bids')
         .insert({
             uid: uid,
+            name: name,
             item_id: item_id,
             amount_bid: amount_bid,
             time_bid: time_bid,
