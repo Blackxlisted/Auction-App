@@ -1,7 +1,18 @@
 import toast from 'react-hot-toast';
+//import { deleteNotification } from '../api/api';
+const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
+import axios from 'axios';
 
 async function notificationToast( uid, item_id, title, image, outbid_price, time_bid, name ) {
   const url = `/auctions/${item_id}`;
+  axios
+    .post(DEL_NOTIFICATION_URL, {uid, item_id})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
   toast.custom((t) => (
     <div

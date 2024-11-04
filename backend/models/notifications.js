@@ -34,4 +34,10 @@ const getNotis = async () => {
     return results;
 }
 
-export { insertUserToNotis, getNotisByUid, getNotis }
+const deleteNotisByUidItemId = async (uid, item_id) => {
+    await db('notifications')
+        .where({'uid': uid, 'item_id': item_id})
+        .delete()
+}
+
+export { insertUserToNotis, getNotisByUid, getNotis, deleteNotisByUidItemId }

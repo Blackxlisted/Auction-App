@@ -78,15 +78,16 @@ function AuctionItemPage() {
             const time_bid = new Date();
             const { title, image } = auctionInfo;
             const outbid_price = amount_bid;
-            const usersToNotify = [];
+            const usersToNotifySet = new Set();
             if (bids) {
                 bids.map((bid => {
                     console.log(bid.uid, uid);
                     if (bid.uid !== uid) {
-                        usersToNotify.push(bid.uid);
+                        usersToNotifySet.add(bid.uid);
                     };
                 }));
             };
+            const usersToNotify = [...usersToNotifySet];
             const name = user?.name;
             if (usersToNotify) {
                 usersToNotify.map(uid => {
