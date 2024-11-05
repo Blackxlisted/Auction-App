@@ -51,9 +51,9 @@ const insertToAuctions = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { title, uid, description, price, bid_increment, file, end_time } = body;
+        const { title, uid, description, price, min_bid_increment, file, end_time } = body;
   
-        await insertAuction(title, uid, description, price, bid_increment, file, end_time);
+        await insertAuction(title, uid, description, price, min_bid_increment, file, end_time);
         return res.status(201).json({ message: 'Auction created successfully' });       
     }
     

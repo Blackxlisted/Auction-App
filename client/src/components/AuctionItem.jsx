@@ -56,7 +56,7 @@ const AuctionItem = ({ auctionsInfo }) => {
                      (<p>Auction ended</p>) :
                      (<p>No bids yet</p>)
                     }
-                    {console.log(auctionInfo.end_time)}
+                    <p>Min bid increment: £{auctionInfo.min_bid_increment}</p>
                     {
                       auctionInfo.end_time ? (
                         auctionInfo.hasEnded ? (<p>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)

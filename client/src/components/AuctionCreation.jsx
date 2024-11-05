@@ -61,26 +61,7 @@ function AuctionCreation() {
       })
   }
 
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  //   handleIncrementList(event.target.value);
-  // };
-  // const handleIncrementList = (inputValue) => {
-  //   const intInputValue = Math.round(inputValue);
-  //   let increment;
-
-  //   if (intInputValue < 10) {
-  //       increment = [10, 11, 12, 13, 14, 15];
-  //   } else if (intInputValue < 500) {
-  //       increment = [5, 6, 7, 8, 9, 10];
-  //   } else if (intInputValue < 1000) {
-  //       increment = [0.5, 1, 2, 3, 4, 5];
-  //   } else {
-  //       increment = [0.1, 0.2, 0.3, 0.4, 0.5, 1];
-  //   }
-  //   //console.log(1+increment[0]/100)
-  //   setIncrements(increment);
-  // };
+  
 
   return (
     <form className='grid grid-rows-1 gap-4 mx-[40%]' onSubmit={handleSubmit} ref={formRef}>
@@ -90,9 +71,9 @@ function AuctionCreation() {
         <label htmlFor='description'></label>
         <input type="text" placeholder='Description' id='description' name='description' />
         <label htmlFor='price'></label>
-        <input type="number" id='price' name='price' required />
+        <input type="number" id='price' name='price' placeholder='Starting price' required />
         <label htmlFor='min_bid_increment'></label>
-        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' required />
+        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' placeholder='Minimum bid increment' required />
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>
