@@ -26,7 +26,7 @@ function AuctionItemPage() {
 
   useEffect(() => {
    
-    async function fetchItem () {
+    async function fetchItem (id) {
         try {
             const item = await getAuctionItem(id);
             item.price = parseFloat(item.price);
@@ -69,9 +69,13 @@ function AuctionItemPage() {
             // preset bid increment set here
             let amount_bid;
             const auctionItem = {...auctionInfo};
+            console.log(customIncrement);
+            console.log(currentPrice);
+            console.log(auctionItem.min_bid_increment);
             if (customIncrement) {
-                if (customIncrement < currentPrice + auctionItem.min_bid_increment) {
-                    toast.error(`Bid must be at least £${currentPrice + auctionItem.min_bid_increment}`);
+                const itemPrice = currentPrice ? currentPrice : auctionInfo.price;
+                if (customIncrement < itemPrice + auctionItem.min_bid_increment) {
+                    toast.error(`Bid must be at least £${itemPrice + auctionItem.min_bid_increment}`);
                     return;
                 }
                 amount_bid = customIncrement;
@@ -135,6 +139,7 @@ function AuctionItemPage() {
 
   return (
     <>
+        {console.log(currentPrice)}
         <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
             {/* image container */}
             <div className='p-5'>
@@ -163,7 +168,7 @@ function AuctionItemPage() {
                 ) : bids[0]?.uid !== sub ? (
                     <div>
                         <label htmlFor='increment'></label>
-                        <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={currentPrice+bidIncrement} placeholder='Set your own amount'/>
+                        <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={(!isNaN(currentPrice) && !isNaN(bidIncrement)) ? (currentPrice + bidIncrement) : auctionInfo.price + bidIncrement} placeholder='Set your own amount'/>
                         {hasInput ? 
                         (<button type='submit' className='btn' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
                         : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (currentPrice+bidIncrement) : (auctionInfo.price+bidIncrement)}</button>)}
