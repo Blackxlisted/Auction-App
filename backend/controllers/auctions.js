@@ -1,4 +1,4 @@
-import { getAllAuctions, insertAuction, getAuctionById, updateAuctionHighestBid } from '../models/auctions.js';
+import { getAllAuctions, insertAuction, getAuctionById, updateAuctionHighestBid, updateAuctionMinBidIncrement } from '../models/auctions.js';
 
 
 const getAuctions = async (req, res) => {
@@ -23,6 +23,18 @@ const getAuctionByIdController = async (req, res) => {
     }
 }
 
+const updateAuctionMinBidIncrementController = async (req, res) => {
+    try { 
+        const { id, min_bid_increment } = req.body;      
+        await updateAuctionMinBidIncrement(id, min_bid_increment);
+        //return res.status(200).json({message: 'column bid_increment of auctions updated successfully'})
+    }
+    catch (error) {
+        console.error(error)
+        //return res.status(500).json(error);
+    }
+}
+
 const updateAuctionHighestBidController = async (req, res) => { // no res.status to avoid headers_sent error
     try {
         const { item_id, amount_bid } = req.body;
@@ -39,9 +51,9 @@ const insertToAuctions = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { title, uid, description, price, file, end_time } = body;
+        const { title, uid, description, price, bid_increment, file, end_time } = body;
   
-        await insertAuction(title, uid, description, price, file, end_time);
+        await insertAuction(title, uid, description, price, bid_increment, file, end_time);
         return res.status(201).json({ message: 'Auction created successfully' });       
     }
     
@@ -52,4 +64,4 @@ const insertToAuctions = async (req, res) => {
 };
 
 
-export { getAuctions, insertToAuctions, getAuctionByIdController, updateAuctionHighestBidController }
+export { getAuctions, insertToAuctions, getAuctionByIdController, updateAuctionHighestBidController, updateAuctionMinBidIncrementController }

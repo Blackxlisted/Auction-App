@@ -17,7 +17,11 @@ function AuctionItemPage() {
   const [bids, setBids] = useState([]);
   const ADD_BID_URL = 'http://localhost:5005/api/bids/add';
   const ADD_NOTIS_URL = 'http://localhost:5005/api/notifications/add';
+  const UPDATE_INCREMENT_URL = 'http://localhost:5005/api/auctions/update-bid-increment';
   const [currentPrice, setCurrentPrice] = useState(0);
+  const [bidIncrement, setBidIncrement] = useState(0);
+  const [hasInput, setHasInput] = useState(false);
+  const [customIncrement, setCustomIncrement] = useState('');
 
   useEffect(() => {
    
@@ -30,6 +34,9 @@ function AuctionItemPage() {
             const importedImage = await loadImage(item.image);
             console.log(importedImage);
             setImage(importedImage);
+            item.min_bid_increment = parseFloat(item.min_bid_increment);
+            setBidIncrement(item.min_bid_increment);
+
         } catch (error) {
             console.error(error);
         }
@@ -53,17 +60,26 @@ function AuctionItemPage() {
         fetchBids();
     }, [currentPrice]);
 
-    async function insertBid (uid, item_id) {
+    async function insertBid (uid, item_id, customIncrement) {
         
         try {
             console.log('bids,', bids);
             // preset bid increment set here
+            const auctionItem = {...auctionInfo}
+            if (customIncrement) {
+                auctionItem.bid_increment = customIncrement;
+            }
+            
+            console.log(bidIncrement);
             const amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0)
-            ? Math.ceil(currentPrice * 1.1) 
-            : Math.ceil(auctionInfo.price * 1.1);
+            ? Math.ceil(currentPrice + auctionItem.min_bid_increment) 
+            : Math.ceil(auctionItem.price +  auctionItem.min_bid_increment);
             setCurrentPrice(amount_bid);
-            const item_end_time = auctionInfo.end_time; 
-            const hasEnded = auctionInfo.hasEnded;
+
+            
+
+            const item_end_time = auctionItem.end_time; 
+            const hasEnded = auctionItem.hasEnded;
             const entries = {uid, name, item_id, amount_bid, item_end_time, hasEnded};
             console.log('entries', entries)
             axios
@@ -76,7 +92,7 @@ function AuctionItemPage() {
                 });
             
             const time_bid = new Date();
-            const { title, image } = auctionInfo;
+            const { title, image } = auctionItem;
             const outbid_price = amount_bid;
             const usersToNotifySet = new Set();
             if (bids) {
@@ -110,6 +126,8 @@ function AuctionItemPage() {
         
     }
 
+    
+
   return (
     <>
         <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
@@ -138,7 +156,14 @@ function AuctionItemPage() {
                 (                     
                     <h3>Auction expired</h3>
                 ) : bids[0]?.uid !== sub ? (
-                    <button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid {currentPrice ? ((currentPrice*1.1)/100).toFixed(2) : ((auctionInfo.price*1.1)/100).toFixed(2)}</button>
+                    <div>
+                        <label htmlFor='increment'></label>
+                        <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={bidIncrement} placeholder='Set your own amount'/>
+                        {hasInput ? 
+                        (<button type='submit' className='btn' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
+                        : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (currentPrice/100+bidIncrement) : (auctionInfo.price/100+bidIncrement)}</button>)}
+                        
+                    </div>
                 ) : (<p>You hold highest bid</p>)
             }
         </div>

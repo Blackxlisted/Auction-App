@@ -12,13 +12,14 @@ const getAllAuctions = async () => {
     return results;
 }
 
-const insertAuction = async (title, uid, description, price, file, end_time) => {
+const insertAuction = async (title, uid, description, price, bid_increment, file, end_time) => {
     await db('auctions')
         .insert({
             title: title,
             uid: uid,
             description: description,
             price: price,
+            bid_increment: bid_increment,
             image: file,
             end_time: end_time
         })
@@ -47,4 +48,11 @@ const getAuctionById = async (id) => {
     return results;
 }
 
-export { getAllAuctions, insertAuction, updateAuctionHasEnded, getAuctionById, updateAuctionHighestBid }
+const updateAuctionMinBidIncrement = async (id, min_bid_increment) => {
+     await db('auctions')
+        .where('id', id)
+        .update({ min_bid_increment: min_bid_increment})
+ 
+}
+
+export { getAllAuctions, insertAuction, updateAuctionHasEnded, getAuctionById, updateAuctionHighestBid, updateAuctionMinBidIncrement }

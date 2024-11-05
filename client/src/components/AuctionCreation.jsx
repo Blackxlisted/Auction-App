@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
 const AUCTION_URL = import.meta.env.VITE_DEVELOPMENT_AUCTIONS_URL;
 
 
 
 function AuctionCreation() {
-
+  // const [inputValue, setInputValue] = useState(0);
+  // const [increments, setIncrements] = useState([]);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
@@ -35,7 +36,8 @@ function AuctionCreation() {
     const descriptionChecked = description ? description : 'No description provided.'
     const image = file.name ? file.name : 'No-Image-Available.jpg';
     entriesWithUID.file = image;
-    entriesWithUID.price = entriesWithUID.price*100;
+    //entriesWithUID.price = entriesWithUID.price*100;
+    //entriesWithUID.bid_increment = parseFloat(entriesWithUID.bid_increment);
 
     // converting end_time to db time format
     const utcDateTime = end_time ? new Date(end_time)?.toISOString() : null;
@@ -57,23 +59,44 @@ function AuctionCreation() {
       .catch((error) => {
         console.log(error);
       })
-      
-
-      
   }
+
+  // const handleInputChange = (event) => {
+  //   setInputValue(event.target.value);
+  //   handleIncrementList(event.target.value);
+  // };
+  // const handleIncrementList = (inputValue) => {
+  //   const intInputValue = Math.round(inputValue);
+  //   let increment;
+
+  //   if (intInputValue < 10) {
+  //       increment = [10, 11, 12, 13, 14, 15];
+  //   } else if (intInputValue < 500) {
+  //       increment = [5, 6, 7, 8, 9, 10];
+  //   } else if (intInputValue < 1000) {
+  //       increment = [0.5, 1, 2, 3, 4, 5];
+  //   } else {
+  //       increment = [0.1, 0.2, 0.3, 0.4, 0.5, 1];
+  //   }
+  //   //console.log(1+increment[0]/100)
+  //   setIncrements(increment);
+  // };
+
   return (
     <form className='grid grid-rows-1 gap-4 mx-[40%]' onSubmit={handleSubmit} ref={formRef}>
         <h3> Create auction</h3>
         <label htmlFor='title'></label>
-        <input type="text" placeholder='Enter your title' id='title' name='title' />
+        <input type="text" placeholder='Enter your title' id='title' name='title' required />
         <label htmlFor='description'></label>
         <input type="text" placeholder='Description' id='description' name='description' />
         <label htmlFor='price'></label>
-        <input type="number" placeholder='Set your starting price' id='price' name='price' />
+        <input type="number" id='price' name='price' required />
+        <label htmlFor='min_bid_increment'></label>
+        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' required />
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>
-        <input type="datetime-local" id='end_time' name='end_time' />
+        <input type="datetime-local" id='end_time' name='end_time' required />
         <button type='submit' className='btn'> Create Auction </button>
         <button onClick={resetAllFields}>Reset?</button>
     </form>
