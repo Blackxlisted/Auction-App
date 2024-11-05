@@ -37,7 +37,9 @@ const AuctionItem = ({ auctionsInfo }) => {
       <div className='grid grid-cols-4 mt-10'>
         {auctionsInfo.map((auctionInfo) => {
           //loadImage(auctionInfo.image)
-          
+          //auctionInfo.price = parseFloat(auctionInfo.price);
+          //auctionInfo.highest_bid = parseFloat(auctionInfo.highest_bid);
+
           return (
             <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
                 {/* image container */}
@@ -48,9 +50,9 @@ const AuctionItem = ({ auctionsInfo }) => {
                 <div> {auctionInfo.title} </div>
                 <div>
                     {/* shortened description: starting price, end date */}
-                    <p> Starting at: £{(auctionInfo.price)/100} </p>
+                    <p> Starting at: £{(auctionInfo.price)} </p>
                     {auctionInfo.highest_bid !== 0 && auctionInfo.highest_bid ?
-                     (<p> Current highest bid: £{auctionInfo.highest_bid/100}</p>) : auctionInfo.hasEnded ?
+                     (<p> Current highest bid: £{auctionInfo.highest_bid}</p>) : auctionInfo.hasEnded ?
                      (<p>Auction ended</p>) :
                      (<p>No bids yet</p>)
                     }

@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import BidsCatalogue from '../components/BidsCatalogue.jsx';
 import axios from 'axios';
 import ReactTimeAgo from 'react-time-ago'
+import toast, { Toaster } from 'react-hot-toast';
 
 function AuctionItemPage() {
   const { user } = useAuth0();
@@ -28,15 +29,16 @@ function AuctionItemPage() {
     async function fetchItem () {
         try {
             const item = await getAuctionItem(id);
-            setAuctionInfo(item);
+            item.price = parseFloat(item.price);
+            item.highest_bid = parseFloat(item.highest_bid);
+            item.min_bid_increment = parseFloat(item.min_bid_increment);
+            setBidIncrement(item.min_bid_increment);
             console.log(item);
+            setAuctionInfo(item);
             console.log(item.image);
             const importedImage = await loadImage(item.image);
             console.log(importedImage);
             setImage(importedImage);
-            item.min_bid_increment = parseFloat(item.min_bid_increment);
-            setBidIncrement(item.min_bid_increment);
-
         } catch (error) {
             console.error(error);
         }
@@ -50,9 +52,9 @@ function AuctionItemPage() {
         async function fetchBids() {
             try {
                 const bidsObject = await getBidsByItemId(id);
-                console.log(bidsObject)
                 setBids(bidsObject);
-                setCurrentPrice(bidsObject[0]?.amount_bid);
+                setCurrentPrice(parseFloat(bidsObject[0]?.amount_bid));
+                console.log(bidsObject)
             } catch (error) {
                 console.error(error);
             }
@@ -65,19 +67,22 @@ function AuctionItemPage() {
         try {
             console.log('bids,', bids);
             // preset bid increment set here
-            const auctionItem = {...auctionInfo}
+            let amount_bid;
+            const auctionItem = {...auctionInfo};
             if (customIncrement) {
-                auctionItem.bid_increment = customIncrement;
+                if (customIncrement < currentPrice + auctionItem.min_bid_increment) {
+                    toast.error(`Bid must be at least £${currentPrice + auctionItem.min_bid_increment}`);
+                    return;
+                }
+                amount_bid = customIncrement;
+                setCurrentPrice(amount_bid);
+            } else {
+                amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0)
+                ? Math.ceil(currentPrice + auctionItem.min_bid_increment) 
+                : Math.ceil(auctionItem.price +  auctionItem.min_bid_increment);
+                setCurrentPrice(amount_bid);
             }
             
-            console.log(bidIncrement);
-            const amount_bid = (currentPrice !== null && !isNaN(currentPrice) && currentPrice !== undefined && currentPrice > 0)
-            ? Math.ceil(currentPrice + auctionItem.min_bid_increment) 
-            : Math.ceil(auctionItem.price +  auctionItem.min_bid_increment);
-            setCurrentPrice(amount_bid);
-
-            
-
             const item_end_time = auctionItem.end_time; 
             const hasEnded = auctionItem.hasEnded;
             const entries = {uid, name, item_id, amount_bid, item_end_time, hasEnded};
@@ -139,7 +144,7 @@ function AuctionItemPage() {
             <div> {auctionInfo.title} </div>
             <div>
                 {/* full description */}
-                <p> Starting at: £{(auctionInfo.price)/100} </p>
+                <p> Starting at: £{(auctionInfo.price)} </p>
                 {auctionInfo.end_time ? 
                 (
                     auctionInfo.hasEnded ? (<p>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
@@ -158,10 +163,10 @@ function AuctionItemPage() {
                 ) : bids[0]?.uid !== sub ? (
                     <div>
                         <label htmlFor='increment'></label>
-                        <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={bidIncrement} placeholder='Set your own amount'/>
+                        <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={currentPrice+bidIncrement} placeholder='Set your own amount'/>
                         {hasInput ? 
                         (<button type='submit' className='btn' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
-                        : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (currentPrice/100+bidIncrement) : (auctionInfo.price/100+bidIncrement)}</button>)}
+                        : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (currentPrice+bidIncrement) : (auctionInfo.price+bidIncrement)}</button>)}
                         
                     </div>
                 ) : (<p>You hold highest bid</p>)

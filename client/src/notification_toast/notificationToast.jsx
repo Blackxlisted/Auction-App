@@ -3,6 +3,7 @@ import ReactTimeAgo from 'react-time-ago'
 const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
 import axios from 'axios';
 
+
 async function notificationToast( uid, item_id, title, image, outbid_price, time_bid, name ) {
   const url = `/auctions/${item_id}`;
   axios
@@ -38,7 +39,7 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
               You were outbid on <a href={url} className='text-indigo-600 hover:text-indigo-500'>this</a> item by <span className='text-gray-600'>{name}</span>
             </p>
             <p className="mt-0 text-sm text-gray-500">
-              Current bid: <span className='text-gray-600'>£{outbid_price/100}</span>
+              Current bid: <span className='text-gray-600'>£{outbid_price}</span>
             </p>
             
           </div>
