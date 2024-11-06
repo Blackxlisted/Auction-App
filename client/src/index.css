@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(71, 71, 71, 0.87);
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.btn {
+  @apply text-white bg-gray-800 p-2 rounded-sm hover:bg-gray-600 hover:font-bold active:bg-gray-800 active:font-bold focus:ring focus:ring-gray-400;
+}
+
+.nav li {
+  position: relative; /* Position relative to allow absolute positioning of ::after */
+}
+
+.nav .active {
+  color: #471278;
+  font-weight: bold;
+}
+
+.nav .active::after,
+.nav li:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px; /* Adjust this value to change the vertical position of the underline */
+  width: 80%;
+  left: 10%;
+  height: 3px; /* Customize thickness */
+  background-color: #ff4141; /* Customize underline color */
+  transition: width 0.3s; /* Optional: add a hover effect */
+  border-radius: 10px;
+}
+
+.nav li:hover::after {
+  width: 80%; /* Full width on hover */
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-icon {
+    width: 50px;
+  }
+  .hide {
+    display: none;
+  }
+  
+}
+@media only screen and (width > 600px) {
+  .menu-icon {
+    display: none;
+    width: 10px;
+  }
+  .hide {
+    display: show;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  input {
+    color:white;
+  }
+}
+
+/* hero styles  */
+.hero{
+  height: 100vh;
+  background: linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+  display: flex;
+
+}
+.hero-left{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-left: 180px;
+  line-height: 1.1;
+}
+.hero-left h2{
+  color: #090909;
+  font-size: 26px;
+  font-weight: 600;
+
+
+}
+
+.hero-left p{
+  color: #171717;
+  font-size: 100px;
+  font-weight: 700;
+
+}
+.hero-hand-icon{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+}
+.hero-hand-icon img{
+  width: 105px;
+
+
+}
+.hero-latest-btn{
+  gap: 15px;
+  width: 310px;
+  height: 70px;
+  border-radius: 75px;
+  margin-top: 30px;
+  background-color: #ff4141;
+  color: white;
+  font-size: 22px;
+  font-weight: 500;
+  
+}
+.hero-latest-btn div {
+  padding-top: 22px;
+  height: 100%;
+  text-align: center;
+}
+.hero-latest-btn div:hover {
+  background-color: rgb(194, 29, 29);
+  border-radius: 75px;
+}
+.hero-right{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+/* navbar styles */
+.navbar{
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  box-shadow: 0 1px 3px -2px black;
+}
+
+.nav-logo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo p{
+  color: #171717;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.nav-menu{
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 50px;
+  font-size: 20px;
+  font-weight: 500;
+  height: 180px;
+  justify-content: center;
+  color: #551a8c;
+}
+
+.nav-menu li{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.nav-login-auction-cart{
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+
+.nav-login-auction-cart button{
+  width: 157px;
+  height: 58px;
+  outline: none;
+  border: 1px solid #7a7a7a;
+  border-radius: 75px;
+  color: #515151;
+  font-size: 20px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+
+.nav-login-auction-cart button:active{
+  background: #f3f3f3;
+}
+
+/* .nav-login-auction-cart img{
+  width: 70px;
+} */
+
+.nav-cart-count{
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -35px;
+  margin-left: -55px;
+  border-radius: 11px;
+  font-size: 14px;
+  background: red;
+  color: white;
+}
