@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { notificationToast } from '../notification_toast/notificationToast';
 import axios from 'axios';
 import { loadImage } from '../utils/utils';
+import Papa from 'papaparse';
 
 
 const LandingPage = () => {
@@ -12,6 +13,24 @@ const LandingPage = () => {
   const { user, loginWithRedirect } = useAuth0();
   const sub = user?.sub;
   console.log(sub);
+  const filePath = '/flipkart_com-ecommerce_sample.csv'
+  const parseCSV = async (filePath) => {
+    try {
+      const response = await fetch(filePath);
+      const csvText = await response.text();
+      Papa.parse(csvText, {
+        complete: (result) => {
+          console.log(result.data); // Process CSV data here
+        },
+      });
+    } catch (error) {
+      console.error('Error fetching CSV:', error);
+    }
+  };
+  
+  // Call the function
+  parseCSV(filePath);
+  
 
   const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid'
   const getNotis = async () => {
