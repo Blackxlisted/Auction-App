@@ -12,15 +12,17 @@ const getAllAuctions = async () => {
     return results;
 }
 
-const insertAuction = async (title, uid, description, price, min_bid_increment, file, end_time) => {
+const insertAuction = async (title, uid, description, category, price, min_bid_increment, file, image_url, end_time) => {
     await db('auctions')
         .insert({
             title: title,
             uid: uid,
             description: description,
+            category: category,
             price: price,
             min_bid_increment: min_bid_increment,
             image: file,
+            image_url, image_url,
             end_time: end_time
         })
 }

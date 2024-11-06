@@ -15,7 +15,6 @@ app.use(express.json());
 app.use('/api/auctions', AuctionsRouter);
 app.use('/api/bids', BidsRouter);
 app.use('/api/notifications', NotificationsRouter);
-
 // middleware error handler
 app.use((req, res) => {
     res.status(400).send('Bad request. Route not found. test')

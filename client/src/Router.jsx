@@ -7,6 +7,8 @@ import {
     ErrorPage,
     AuctionsPage,
     AuctionItemPage,
+    GenerateDataPage,
+    InsertDataPage,
 } from "./pages/index";
 
 export const router = createBrowserRouter([
@@ -25,6 +27,18 @@ export const router = createBrowserRouter([
                     <PrivateRoute>
                         <CreateAuctionPage />
                     </PrivateRoute>
+                )
+            },
+            {
+                path: '/generate-data',
+                element: (
+                    <GenerateDataPage/>
+                )
+            },
+            {
+                path: '/insert-data',
+                element: (
+                    <InsertDataPage/>
                 )
             },
             {

@@ -5,3 +5,5 @@ export { default as HomeLayoutPage } from "./HomeLayoutPage";
 export { default as ErrorPage} from "./ErrorPage";
 export { default as AuctionsPage} from "./AuctionsPage";
 export { default as AuctionItemPage } from "./AuctionItemPage";
+export { default as GenerateDataPage } from "./GenerateDataPage";
+export { default as InsertDataPage } from "./InsertData";

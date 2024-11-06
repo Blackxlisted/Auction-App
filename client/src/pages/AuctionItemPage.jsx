@@ -55,6 +55,7 @@ function AuctionItemPage() {
                 setBids(bidsObject);
                 setCurrentPrice(parseFloat(bidsObject[0]?.amount_bid));
                 console.log(bidsObject)
+                console.log('bids in fetch', bids);
             } catch (error) {
                 console.error(error);
             }
@@ -66,7 +67,6 @@ function AuctionItemPage() {
         
         try {
             console.log('bids,', bids);
-            // preset bid increment set here
             let amount_bid;
             const auctionItem = {...auctionInfo};
             console.log(customIncrement);
@@ -143,7 +143,9 @@ function AuctionItemPage() {
         <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
             {/* image container */}
             <div className='p-5'>
-                <img src={image} className='w-60'></img>
+                {auctionInfo.image_url ? 
+                (<img src={auctionInfo.image_url} className='w-60'></img>) 
+                : (<img src={image} className='w-60'></img>)}
             </div>
             {/* title */}
             <div> {auctionInfo.title} </div>

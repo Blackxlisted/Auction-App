@@ -9,7 +9,7 @@ exports.up = function(knex) {
         table.integer("item_id");
         table.decimal("outbid_price", 10, 2);
         table.dateTime("time_bid");
-        table.string("title", 50);
+        table.text("title");
         table.text("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
         table.string("name", 50);
     })

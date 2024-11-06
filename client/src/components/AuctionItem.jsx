@@ -4,8 +4,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { loadImage } from '../utils/utils';
 import ReactTimeAgo from 'react-time-ago'
+import { shortenString } from '../utils/utils';
 
 const AuctionItem = ({ auctionsInfo }) => {
+    const MAX_TITLE_LENGTH = 100;
     const { user } = useAuth0();
     const [images, setImage] = useState({});
 
@@ -44,10 +46,15 @@ const AuctionItem = ({ auctionsInfo }) => {
             <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
                 {/* image container */}
                 <div className='p-5'>
+                  {auctionInfo.image_url ? (
+                    <img src={auctionInfo.image_url} className='w-60 max-h-64'></img>
+                  ) : (
                     <img src={images[auctionInfo.id]} className='w-60'></img>
+                  )}
+                    
                 </div>
                 {/* title */}
-                <div> {auctionInfo.title} </div>
+                <div> {shortenString(auctionInfo.title, MAX_TITLE_LENGTH)} </div>
                 <div>
                     {/* shortened description: starting price, end date */}
                     <p> Starting at: £{(auctionInfo.price)} </p>

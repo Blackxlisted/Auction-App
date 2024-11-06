@@ -2,10 +2,12 @@ import toast from 'react-hot-toast';
 import ReactTimeAgo from 'react-time-ago'
 const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
 import axios from 'axios';
-
+import { shortenString } from '../utils/utils';
 
 async function notificationToast( uid, item_id, title, image, outbid_price, time_bid, name ) {
   const url = `/auctions/${item_id}`;
+  const MAX_TITLE_LENGTH = 30;
+
   axios
     .post(DEL_NOTIFICATION_URL, {uid, item_id})
     .then((response) => {
@@ -32,7 +34,7 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
           </div>
           <div className="ml-3 flex-1">
             <p className="text-sm font-medium text-gray-900">
-              {title}
+              {shortenString(title, MAX_TITLE_LENGTH)}
             </p>
             <p className='text-sm text-gray-600 absolute right-[329px] top-[5px]'><ReactTimeAgo date={Date.parse(time_bid)} locale="en-GB"/></p>
             <p className="mt-1 text-sm text-gray-500">
