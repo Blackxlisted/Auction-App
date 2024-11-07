@@ -38,7 +38,7 @@ function DataPage() {
             item[9] = item[9].split(",")[0].replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, '');;
             
             return (
-                item.filter((_, innerIndex) => indicesToKeep.includes(innerIndex))
+                item.filter((item, index) => indicesToKeep.includes(index))
             )
             });
 
