@@ -1,20 +1,9 @@
 import React from 'react'
 import axios from 'axios';
-import { useEffect } from 'react';
-// table.string("uid", 100).notNullable().defaultTo("");
-// table.string("title").notNullable();
-// table.text("description").notNullable().defaultTo("No description provided.");
-// table.string("category");
-// table.decimal("price", 10, 2).notNullable() // change to decimal 
-// table.decimal("min_bid_increment", 10, 2).notNullable();
-// table.text("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
-// table.dateTime("end_time").notNullable().defaultTo(
-//   knex.raw("NOW() + INTERVAL '1 day'")
-// );
-// table.decimal("highest_bid", 10, 2);
-// table.boolean('hasEnded').notNullable().defaultTo(false);
-function InsertData() {
+import { useEffect, useState } from 'react';
 
+function InsertData() {
+    const [categories, setCategories] = useState([]);
     const uid = 'static_data';
     const AUCTION_URL = import.meta.env.VITE_DEVELOPMENT_AUCTIONS_URL;
 
@@ -23,16 +12,19 @@ function InsertData() {
             try {
                 const response = await fetch('./data.json');
                 const data = await response.json();
+                const set = new Set();
                 for (const item of data) {
                     const title = item[0];
                     const description = item[1];
                     const price = item[2];
                     const min_bid_increment = parseFloat(price*0.1);
                     const category = item[3];
+                    set.add(category);
                     const image_url = item[4];
                     const entries = { uid, title, description, category, price, min_bid_increment, image_url };
                     await insertToAuctions(AUCTION_URL, entries);
                 }
+                setCategories(set);
             } catch (error) {
                 console.log('Error fetching or inserting data', error);
             }
@@ -56,7 +48,7 @@ function InsertData() {
     }
 
   return (
-    <div>InsertData</div>
+    <div>Categories: {categories}</div>
   )
 }
 
