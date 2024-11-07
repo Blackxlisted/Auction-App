@@ -9,6 +9,7 @@ import {
     AuctionItemPage,
     GenerateDataPage,
     InsertDataPage,
+    MyAuctions,
 } from "./pages/index";
 
 export const router = createBrowserRouter([
@@ -55,6 +56,14 @@ export const router = createBrowserRouter([
                     }
                 ]
             },
+            {
+                path: '/my-auctions',
+                element: (
+                    <PrivateRoute>
+                        <MyAuctions />
+                    </PrivateRoute>
+                )
+            }
         ]
 
     }

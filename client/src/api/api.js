@@ -7,6 +7,7 @@ const BIDS_ENDPOINT = 'http://localhost:5005/api/bids';
 const UPDATE_HASENDED_ENDPOINT = 'http://localhost:5005/api/bids/updateHasEnded';
 const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid';
 const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
+const AUCTIONS_BY_UID = 'http://localhost:5005/api/auctions/my-auctions'
 
 // trigger functions 
 // (will trigger the controller functions that are mounted on the relevant url endpoints)
@@ -57,6 +58,18 @@ export const updateHasEnded = async () => {
         return response.data;
     } catch (error) {
         console.error('Error on updating columns hasEnded of bids table', error);
+    }
+}
+
+export const getAuctionsByUid = async (uid) => {
+    try {
+        console.log(uid)
+        const response = await axios.get(AUCTIONS_ENDPOINT);
+        const items = response.data.filter(item => item.uid === uid);
+        console.log(items);      
+        return items;
+    } catch (error) {
+        console.error('Error fetching auction item from backend server', error);
     }
 }
 

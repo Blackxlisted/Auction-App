@@ -57,4 +57,6 @@ const updateAuctionMinBidIncrement = async (id, min_bid_increment) => {
  
 }
 
+
+
 export { getAllAuctions, insertAuction, updateAuctionHasEnded, getAuctionById, updateAuctionHighestBid, updateAuctionMinBidIncrement }

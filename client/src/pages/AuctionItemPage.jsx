@@ -173,7 +173,7 @@ function AuctionItemPage() {
                         <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={(!isNaN(currentPrice) && !isNaN(bidIncrement)) ? (currentPrice + bidIncrement) : auctionInfo.price + bidIncrement} placeholder='Set your own amount'/>
                         {hasInput ? 
                         (<button type='submit' className='btn' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
-                        : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (currentPrice+bidIncrement) : (auctionInfo.price+bidIncrement)}</button>)}
+                        : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (parseFloat(currentPrice+bidIncrement)) : (parseFloat(auctionInfo.price+bidIncrement))}</button>)}
                         
                     </div>
                 ) : (<p>You hold highest bid</p>)

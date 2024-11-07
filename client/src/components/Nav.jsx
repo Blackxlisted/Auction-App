@@ -43,9 +43,10 @@ const Nav = ()  => {
                 Create Auction</NavLink> </li>
                 <li> <NavLink to='/auctions' className='link'>
                 Auctions</NavLink> </li>
+                <li> <NavLink to={`/my-auctions`}>My Auctions</NavLink> </li>
                 <div className="nav-login-auction-cart">
                     <UserContainer user={user} login={loginWithRedirect} logout={logout} />
-                  </div>            
+                </div>            
             </ul>
         </nav>
     );
