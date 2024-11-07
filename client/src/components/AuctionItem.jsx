@@ -11,7 +11,7 @@ const AuctionItem = ({ auctionsInfo }) => {
     const { user } = useAuth0();
     const [images, setImage] = useState({});
     const categories = ['Health & Household', 'Tools & Home Improvement', 'Home & Kitchen', 'Pet Supplies', 'Cell Phones & Accessories', 'Electronics', 'Video Games', 'Industrial & Scientific', 'Baby Products', 'Office Products', 'Beauty & Personal Care', 'Clothing'];
-    const [filteredItems, setFilteredItems] = useState([]);
+    const [filteredItems, setFilteredItems] = useState(null);
 
     const sub = user?.sub; // userID of current logged in user
     console.log(sub);
@@ -46,7 +46,21 @@ const AuctionItem = ({ auctionsInfo }) => {
       });
       setFilteredItems(filteredAuctions);
     }
-    const items = filteredItems && filteredItems.length!==0 ? filteredItems : auctionsInfo;
+
+    const filterByDateDesc = () => {
+      const result = [...auctionsInfo];
+      result.sort((a, b) => new Date(b.end_time) - new Date(a.end_time));
+      setFilteredItems(result);
+    }
+
+    const filterByDateAsc = () => {
+      const result = [...auctionsInfo];
+      result.sort((a, b) => new Date(a.end_time) - new Date(b.end_time));
+      setFilteredItems(result);
+    }
+
+    const items = filteredItems ? filteredItems : auctionsInfo;
+
     console.log(filteredItems);
     return (
       <>
@@ -54,6 +68,10 @@ const AuctionItem = ({ auctionsInfo }) => {
           {categories.map((category, index) => (
             <div key={index} onClick={() => filterByCategory(category)} className='btn cursor-pointer'>{category}</div>
           ))}
+        </div>
+        <div>
+          <div className='btn cursor-pointer' onClick={() => filterByDateDesc()}>Date desc</div>
+          <div className='btn cursor-pointer' onClick={() => filterByDateAsc()}>Date asc</div>
         </div>
         <div className='grid grid-cols-4 mt-10'>
           {items.map((auctionInfo) => {
