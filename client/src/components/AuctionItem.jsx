@@ -11,7 +11,10 @@ const AuctionItem = ({ auctionsInfo }) => {
     const { user } = useAuth0();
     const [images, setImage] = useState({});
     const categories = ['Health & Household', 'Tools & Home Improvement', 'Home & Kitchen', 'Pet Supplies', 'Cell Phones & Accessories', 'Electronics', 'Video Games', 'Industrial & Scientific', 'Baby Products', 'Office Products', 'Beauty & Personal Care', 'Clothing'];
-    const [filteredItems, setFilteredItems] = useState(null);
+    const [filteredByCategory, setFilteredByCategory] = useState(null);
+    const [filteredByDate, setFilteredByDate] = useState(null);
+    const [filteredByPrice, setFilteredByPrice] = useState(null);
+    const [items, setItems] = useState(auctionsInfo);
 
     const sub = user?.sub; // userID of current logged in user
     console.log(sub);
@@ -38,30 +41,63 @@ const AuctionItem = ({ auctionsInfo }) => {
     }, [auctionsInfo])
     
     const filterByCategory = (category) => {
+      setFilteredByDate(null);
+      setFilteredByPrice(null);
       const filteredAuctions = [];
       auctionsInfo.forEach((item) => {
         if (item.category === category) {
           filteredAuctions.push(item);
         };
       });
-      setFilteredItems(filteredAuctions);
+      setFilteredByCategory(filteredAuctions);
     }
 
     const filterByDateDesc = () => {
-      const result = [...auctionsInfo];
-      result.sort((a, b) => new Date(b.end_time) - new Date(a.end_time));
-      setFilteredItems(result);
+      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
+      const sortedResult = result.sort((a, b) => new Date(b.end_time) - new Date(a.end_time));
+      setFilteredByDate([...sortedResult]);
     }
 
     const filterByDateAsc = () => {
-      const result = [...auctionsInfo];
-      result.sort((a, b) => new Date(a.end_time) - new Date(b.end_time));
-      setFilteredItems(result);
+      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
+      const sortedResult = result.sort((a, b) => new Date(a.end_time) - new Date(b.end_time));
+      setFilteredByDate([...sortedResult]);
     }
 
-    const items = filteredItems ? filteredItems : auctionsInfo;
+    const filterByPriceDesc = () => {
+      setFilteredByDate(null);
+      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
+      
+      const sortedResult = result.sort((a, b) => {
+        const cost_a = a.price >= a?.highest_bid ? a.price : a.highest_bid;
+        const cost_b = b.price >= b?.highest_bid ? b.price : b.highest_bid;
+        return (
+          cost_b - cost_a
+        )
+      });
+      setFilteredByPrice([...sortedResult]);
+    };
+   
+    const filterByPriceAsc = () => {
+      setFilteredByDate(null);
+      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
+      const sortedResult = result.sort((a, b) => {
+        const cost_a = a.price >= a?.highest_bid ? a.price : a.highest_bid;
+        const cost_b = b.price >= b?.highest_bid ? b.price : b.highest_bid;
+        return (
+          cost_a - cost_b
+        )
+      });
+      setFilteredByPrice([...sortedResult]);
+    };
 
-    console.log(filteredItems);
+    useEffect(() => {
+      setItems(filteredByCategory && !filteredByDate && !filteredByPrice ? filteredByCategory : filteredByDate ? filteredByDate : filteredByPrice ? filteredByPrice : auctionsInfo);
+    }, [filteredByCategory, filteredByDate, filteredByPrice, auctionsInfo]);
+
+    useEffect(() => {
+      console.log("Updated items:", items[0]);
+    }, [items]);
     return (
       <>
         <div className='flex flex-row flex-wrap gap-4'>
@@ -69,9 +105,13 @@ const AuctionItem = ({ auctionsInfo }) => {
             <div key={index} onClick={() => filterByCategory(category)} className='btn cursor-pointer'>{category}</div>
           ))}
         </div>
-        <div>
+        <div className='w-[105px] text-center'>
           <div className='btn cursor-pointer' onClick={() => filterByDateDesc()}>Date desc</div>
           <div className='btn cursor-pointer' onClick={() => filterByDateAsc()}>Date asc</div>
+        </div>
+        <div className='w-[105px] text-center'>
+          <div className='btn cursor-pointer' onClick={() => filterByPriceDesc()}>Price desc</div>
+          <div className='btn cursor-pointer' onClick={() => filterByPriceAsc()}>Price asc</div>
         </div>
         <div className='grid grid-cols-4 mt-10'>
           {items.map((auctionInfo) => {
