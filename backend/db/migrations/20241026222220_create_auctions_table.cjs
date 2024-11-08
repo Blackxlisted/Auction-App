@@ -17,6 +17,7 @@ exports.up = function(knex) {
       knex.raw("NOW() + INTERVAL '1 day'")
     );
     table.decimal("highest_bid", 10, 2);
+    table.string("highest_bidder");
     table.boolean('hasEnded').notNullable().defaultTo(false);
   })
 };

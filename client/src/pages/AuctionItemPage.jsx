@@ -87,9 +87,10 @@ function AuctionItemPage() {
                 setCurrentPrice(amount_bid);
             }
             
-            const item_end_time = auctionItem.end_time; 
-            const hasEnded = auctionItem.hasEnded;
-            const entries = {uid, name, item_id, amount_bid, item_end_time, hasEnded};
+            const item_end_time = auctionItem.end_time;
+            const hasEnded = auctionItem.hasEnded
+            console.log('amount bid before bid insert:', amount_bid);
+            const entries = { uid, name, item_id, amount_bid, item_end_time, hasEnded, sub }; // uid=owner of auction, name/sub = bidder (logged in user)
             console.log('entries', entries)
             axios
                 .post(ADD_BID_URL, entries)

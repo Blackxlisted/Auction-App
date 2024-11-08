@@ -1,5 +1,6 @@
 import knex from 'knex';
 import config from "../db/knexfile.js";
+import { insertUserToNotis } from './notifications.js';
 
 const db = knex(config['development']);
 
@@ -29,16 +30,30 @@ const insertAuction = async (title, uid, description, category, price, min_bid_i
 
 const updateAuctionHasEnded = async () => {
     const currentTime = new Date().toISOString();
-    await db('auctions')
+    const result = await db('auctions')
       .where('end_time', '<', currentTime)
       .andWhere('hasEnded', false)
-      .update({ hasEnded: true });
+      .update({ hasEnded: true })
+      .returning('*');
+    for (const row of result) {
+        const { id, uid, highest_bid, highest_bidder, end_time, title, image } = row
+        const item_id = id;
+        const outbid_price = highest_bid
+        const time_bid = end_time
+        await insertUserToNotis(uid, item_id, outbid_price, time_bid, title, image);
+        if (highest_bidder) {
+            await insertUserToNotis(highest_bidder, item_id, outbid_price, time_bid, title, image);
+        }
+        
+    }
 }
 
-const updateAuctionHighestBid = async (id, highest_bid) => {
+const updateAuctionHighestBid = async (id, amount_bid, highest_bidder) => {
+    console.log('body in models', amount_bid, highest_bidder)
     await db('auctions')
         .where('id', id)
-        .update({ highest_bid: highest_bid })
+        .update({ highest_bid: amount_bid, highest_bidder: highest_bidder })
+
 }
 
 const getAuctionById = async (id) => {
