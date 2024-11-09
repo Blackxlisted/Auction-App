@@ -1,10 +1,10 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Hamburger from "../assets/hamburger-menu.svg";
 import logo from '../assets/logo1.png';
 import { NavLink } from 'react-router-dom';
 import UserContainer from "./UserContainer";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/user/userSlice.js';
 import { useAuth0 } from '@auth0/auth0-react';
 
