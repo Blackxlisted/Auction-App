@@ -58,7 +58,6 @@ const LandingPage = () => {
             <p>Items</p>
             <p>for Everyone</p>
         </div>
-        {/* <button onClick={() => {notificationToast(sub)}}>Toast me herrrrree</button> */}
         
         <div className="hero-latest-btn"> 
           {sub ? (

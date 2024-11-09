@@ -12,6 +12,8 @@ exports.up = function(knex) {
         table.text("title");
         table.text("image", 500).notNullable().defaultTo("No-Image-Available.jpg");
         table.string("name", 50);
+        table.boolean('hasEnded').notNullable().defaultTo(false);
+        table.boolean('isBidder').notNullable().defaultTo(false);
     })
 };
 

@@ -21,10 +21,6 @@ function MyAuctions() {
             async function fetchItems (sub) {
                 try {
                     const item = await getAuctionsByUid(sub);
-                    // item.price = parseFloat(item.price);
-                    // item.highest_bid = parseFloat(item.highest_bid);
-                    // item.min_bid_increment = parseFloat(item.min_bid_increment);
-                    // setBidIncrement(item.min_bid_increment);
                     if (item.length === 0) {
                         return;
                     };
