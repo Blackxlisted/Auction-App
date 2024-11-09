@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom';
 import Nav from '../components/Nav';
 
-function HomeLayoutPage() {
+function MainLayoutPage() {
   return (
     <>
       <Nav />
@@ -11,4 +11,4 @@ function HomeLayoutPage() {
   )
 }
 
-export default HomeLayoutPage
+export default MainLayoutPage

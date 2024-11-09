@@ -1,5 +1,5 @@
 import React from 'react'
-import AuctionCreation from '../../components/AuctionCreation'
+import AuctionCreation from '../components/AuctionCreation'
 
 function CreateAuctionPage() {
   return (

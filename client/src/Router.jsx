@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import {
     CreateAuctionPage,
     LandingPage,
-    HomeLayoutPage,
+    MainLayoutPage,
     ErrorPage,
     AuctionsPage,
     AuctionItemPage,
@@ -15,7 +15,7 @@ import {
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <HomeLayoutPage />,
+        element: <MainLayoutPage />,
         errorElement: <ErrorPage />,
         children: [
             {
