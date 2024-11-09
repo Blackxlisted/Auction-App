@@ -73,7 +73,7 @@ function AuctionCreation() {
         <label htmlFor='price'></label>
         <input type="number" id='price' name='price' placeholder='Starting price' required />
         <label htmlFor='min_bid_increment'></label>
-        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' placeholder='Minimum bid increment' required />
+        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' placeholder='Minimum bid increment' min='1' required />
         <label htmlFor='file'></label>
         <input type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>

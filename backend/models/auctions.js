@@ -36,14 +36,16 @@ const updateAuctionHasEnded = async () => {
       .update({ hasEnded: true })
       .returning('*');
     for (const row of result) {
-        const { id, uid, highest_bid, highest_bidder, end_time, title, image, hasEnded } = row
+        const { id, uid, highest_bid, highest_bidder, end_time, title, image } = row
         const item_id = id;
         const outbid_price = highest_bid;
         const time_bid = end_time;
         const isBidder = true;
-        await insertUserToNotis(uid, item_id, outbid_price, time_bid, title, image, true);
+        const hasEnded = true;
+        const name = 'auctionEnded';
+        await insertUserToNotis(uid, item_id, outbid_price, time_bid, title, image, name, hasEnded, false);
         if (highest_bidder) { // checks if the auction had any bids before it ended, else dont send any other notis.
-            await insertUserToNotis(highest_bidder, item_id, outbid_price, time_bid, title, image, true, isBidder);
+            await insertUserToNotis(highest_bidder, item_id, outbid_price, time_bid, title, image, name, hasEnded, isBidder);
         }
         
     }

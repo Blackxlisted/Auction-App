@@ -47,16 +47,23 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
                   Current bid: <span className='text-gray-600'>£{outbid_price}</span>
                 </p>
               </>
-            ) : !isBidder && isBidder !== undefined ? (
+            ) : !isBidder && isBidder !== undefined && outbid_price ? (
               <>
                 <p className="mt-1 text-sm text-gray-500">
-                  You sold your: <a href={url} className='text-indigo-600 hover:text-indigo-500'>item!</a>
+                  You sold your <a href={url} className='text-indigo-600 hover:text-indigo-500'>item!</a>
                 </p>
                 <p className="mt-0 text-sm text-gray-500">
                   Price sold at: <span className='text-gray-600'>£{outbid_price}</span>
                 </p>
               </>
-            ) : (
+            ) : !isBidder && isBidder !== undefined ? (
+              <>
+                <p className="mt-1 text-sm text-gray-500">
+                  You  <a href={url} className='text-indigo-600 hover:text-indigo-500'>auction</a> expired with no bids
+                </p>
+              </>
+            ) 
+            : (
               <>
                 <p className="mt-1 text-sm text-gray-500">
                   You won <a href={url} className='text-indigo-600 hover:text-indigo-500'>this</a> auction!
