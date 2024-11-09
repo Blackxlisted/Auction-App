@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { loadImage } from '../utils/utils';
 import ReactTimeAgo from 'react-time-ago'
 import { shortenString } from '../utils/utils';
+import { filterByCategory, filterByDateDesc, filterByDateAsc, filterByPriceDesc, filterByPriceAsc } from '../utils/AuctionCatalogue/FilterBy';
+
 
 const AuctionCatalogue = ({ auctionsInfo }) => {
     const MAX_TITLE_LENGTH = 100;
@@ -39,57 +41,6 @@ const AuctionCatalogue = ({ auctionsInfo }) => {
       setImages();
       
     }, [auctionsInfo])
-    
-    const filterByCategory = (category) => {
-      setFilteredByDate(null);
-      setFilteredByPrice(null);
-      const filteredAuctions = [];
-      auctionsInfo.forEach((item) => {
-        if (item.category === category) {
-          filteredAuctions.push(item);
-        };
-      });
-      setFilteredByCategory(filteredAuctions);
-    }
-
-    const filterByDateDesc = () => {
-      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
-      const sortedResult = result.sort((a, b) => new Date(b.end_time) - new Date(a.end_time));
-      setFilteredByDate([...sortedResult]);
-    }
-
-    const filterByDateAsc = () => {
-      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
-      const sortedResult = result.sort((a, b) => new Date(a.end_time) - new Date(b.end_time));
-      setFilteredByDate([...sortedResult]);
-    }
-
-    const filterByPriceDesc = () => {
-      setFilteredByDate(null);
-      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
-      
-      const sortedResult = result.sort((a, b) => {
-        const cost_a = a.price >= a?.highest_bid ? a.price : a.highest_bid;
-        const cost_b = b.price >= b?.highest_bid ? b.price : b.highest_bid;
-        return (
-          cost_b - cost_a
-        )
-      });
-      setFilteredByPrice([...sortedResult]);
-    };
-   
-    const filterByPriceAsc = () => {
-      setFilteredByDate(null);
-      const result = filteredByCategory ? filteredByCategory : [...auctionsInfo];
-      const sortedResult = result.sort((a, b) => {
-        const cost_a = a.price >= a?.highest_bid ? a.price : a.highest_bid;
-        const cost_b = b.price >= b?.highest_bid ? b.price : b.highest_bid;
-        return (
-          cost_a - cost_b
-        )
-      });
-      setFilteredByPrice([...sortedResult]);
-    };
 
     useEffect(() => {
       setItems(filteredByCategory && !filteredByDate && !filteredByPrice ? filteredByCategory : filteredByDate ? filteredByDate : filteredByPrice ? filteredByPrice : auctionsInfo);
@@ -102,16 +53,26 @@ const AuctionCatalogue = ({ auctionsInfo }) => {
       <>
         <div className='flex flex-row flex-wrap gap-4'>
           {categories.map((category, index) => (
-            <div key={index} onClick={() => filterByCategory(category)} className='btn cursor-pointer'>{category}</div>
+            <div key={index} onClick={
+              () => filterByCategory(category, setFilteredByDate, setFilteredByPrice, auctionsInfo, setFilteredByCategory)
+            } className='btn cursor-pointer'>{category}</div>
           ))}
         </div>
         <div className='w-[105px] text-center'>
-          <div className='btn cursor-pointer' onClick={() => filterByDateDesc()}>Date desc</div>
-          <div className='btn cursor-pointer' onClick={() => filterByDateAsc()}>Date asc</div>
+          <div className='btn cursor-pointer' onClick={
+            () => filterByDateDesc(filteredByCategory, auctionsInfo, setFilteredByDate)
+            }>Date desc</div>
+          <div className='btn cursor-pointer' onClick={
+            () => filterByDateAsc(filteredByCategory, auctionsInfo, setFilteredByDate)
+            }>Date asc</div>
         </div>
         <div className='w-[105px] text-center'>
-          <div className='btn cursor-pointer' onClick={() => filterByPriceDesc()}>Price desc</div>
-          <div className='btn cursor-pointer' onClick={() => filterByPriceAsc()}>Price asc</div>
+          <div className='btn cursor-pointer' onClick={
+            () => filterByPriceDesc(setFilteredByDate, filteredByCategory, auctionsInfo, setFilteredByPrice)
+            }>Price desc</div>
+          <div className='btn cursor-pointer' onClick={
+            () => filterByPriceAsc(setFilteredByDate, filteredByCategory, auctionsInfo, setFilteredByPrice)
+            }>Price asc</div>
         </div>
         <div className='grid grid-cols-4 mt-10'>
           {items.map((auctionInfo) => {

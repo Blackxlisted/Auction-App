@@ -8,8 +8,6 @@ const AUCTION_URL = import.meta.env.VITE_DEVELOPMENT_AUCTIONS_URL;
 
 
 function AuctionCreation() {
-  // const [inputValue, setInputValue] = useState(0);
-  // const [increments, setIncrements] = useState([]);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
@@ -36,8 +34,6 @@ function AuctionCreation() {
     const descriptionChecked = description ? description : 'No description provided.'
     const image = file.name ? file.name : 'No-Image-Available.jpg';
     entriesWithUID.file = image;
-    //entriesWithUID.price = entriesWithUID.price*100;
-    //entriesWithUID.bid_increment = parseFloat(entriesWithUID.bid_increment);
 
     // converting end_time to db time format
     const utcDateTime = end_time ? new Date(end_time)?.toISOString() : null;
