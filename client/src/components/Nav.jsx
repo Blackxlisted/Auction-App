@@ -1,10 +1,13 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import Hamburger from "../assets/hamburger-menu.svg";
 import logo from '../assets/logo1.png';
 import { NavLink } from 'react-router-dom';
 import UserContainer from "./UserContainer";
-import { useDispatch, useSelector} from 'react-redux';
+
+import { useDispatch } from 'react-redux';
+
 import { loginUser } from '../features/user/userSlice.js';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -25,6 +28,7 @@ const Nav = ()  => {
 
     return (
         <nav>
+
             <div className="navbar bg-white text-primary-content">
   <div className="navbar-start">
     <div className="dropdown">
@@ -65,6 +69,7 @@ const Nav = ()  => {
       <li>
         <details>
           <summary> <NavLink to='/auctions' className='target:shadow-lg font-bold text-lg'>Auctions</NavLink></summary>
+          <li> <NavLink to={`/my-auctions`}>My Auctions</NavLink> </li>
           <ul className="p-2 btn btn-neutral font-bold">
             <li><a>Vehicles</a></li>
             <li><a>Fashion</a></li>
@@ -78,6 +83,7 @@ const Nav = ()  => {
   </div>
 </div>
 </nav>
+
     );
 };
 

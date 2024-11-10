@@ -3,16 +3,19 @@ import { useAuth0 } from '@auth0/auth0-react';
 import {
     CreateAuctionPage,
     LandingPage,
-    HomeLayoutPage,
+    MainLayoutPage,
     ErrorPage,
     AuctionsPage,
     AuctionItemPage,
+    GenerateDataPage,
+    InsertDataPage,
+    MyAuctions,
 } from "./pages/index";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <HomeLayoutPage />,
+        element: <MainLayoutPage />,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -25,6 +28,18 @@ export const router = createBrowserRouter([
                     <PrivateRoute>
                         <CreateAuctionPage />
                     </PrivateRoute>
+                )
+            },
+            {
+                path: '/generate-data',
+                element: (
+                    <GenerateDataPage/>
+                )
+            },
+            {
+                path: '/insert-data',
+                element: (
+                    <InsertDataPage/>
                 )
             },
             {
@@ -41,6 +56,14 @@ export const router = createBrowserRouter([
                     }
                 ]
             },
+            {
+                path: '/my-auctions',
+                element: (
+                    <PrivateRoute>
+                        <MyAuctions />
+                    </PrivateRoute>
+                )
+            }
         ]
 
     }

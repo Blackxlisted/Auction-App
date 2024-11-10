@@ -37,8 +37,10 @@ const updateAuctionMinBidIncrementController = async (req, res) => {
 
 const updateAuctionHighestBidController = async (req, res) => { // no res.status to avoid headers_sent error
     try {
-        const { item_id, amount_bid } = req.body;
-        await updateAuctionHighestBid(item_id, amount_bid);
+        const { item_id, amount_bid, sub } = req.body; // name = outbid_by
+        const highest_bidder = sub;
+        console.log('higherstbid controller body:', req.body);
+        await updateAuctionHighestBid(item_id, amount_bid, sub);
         //return res.status(200).json({message: 'Auction highest_bid successfully updated'});
     }
     catch (error) {
@@ -51,9 +53,9 @@ const insertToAuctions = async (req, res) => {
     try {
         const body = req.body;
         console.log(body);
-        const { title, uid, description, price, min_bid_increment, file, end_time } = body;
+        const { title, uid, description, category, price, min_bid_increment, file, image_url, end_time } = body;
   
-        await insertAuction(title, uid, description, price, min_bid_increment, file, end_time);
+        await insertAuction(title, uid, description, category, price, min_bid_increment, file, image_url, end_time);
         return res.status(201).json({ message: 'Auction created successfully' });       
     }
     

@@ -6,12 +6,14 @@ import { notificationToast } from '../notification_toast/notificationToast';
 import axios from 'axios';
 import { loadImage } from '../utils/utils';
 
-
 const LandingPage = () => {
   
   const { user, loginWithRedirect } = useAuth0();
   const sub = user?.sub;
   console.log(sub);
+  
+
+  
 
   const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid'
   const getNotis = async () => {
@@ -33,9 +35,10 @@ const LandingPage = () => {
     if (notifications)
       {
         notifications.map(async (item) => {
+          console.log('notification object: ',item)
           const image = await loadImage(item.image);
-          const { title, outbid_price, time_bid, item_id, name } = item;
-          notificationToast(sub, item_id, title, image, outbid_price, time_bid, name);
+          const { title, outbid_price, time_bid, item_id, name, hasEnded, isBidder } = item;
+          notificationToast(sub, item_id, title, image, outbid_price, time_bid, name, hasEnded, isBidder);
         })
       }
   }
@@ -45,7 +48,7 @@ const LandingPage = () => {
 
   return (
     <div className='hero'>
-      <section className="hero-left">
+      <div className="hero-left">
         <h2>Bid, win, own—just one click away!</h2>
         <div>
             <div className="hero-hand-icon">
@@ -56,7 +59,6 @@ const LandingPage = () => {
             <p>Items</p>
             <p>for Everyone</p>
         </div>
-        {/* <button onClick={() => {notificationToast(sub)}}>Toast me herrrrree</button> */}
         
         <div className="hero-latest-btn"> 
           {sub ? (
@@ -66,22 +68,19 @@ const LandingPage = () => {
                 </div>
               </Link>
               
-            ) : 
+            ) :
             (
               <div>
                 <button onClick={() => loginWithRedirect()}>Start bidding!</button>
               </div>
             )
-          }   
+          }
+            
         </div>
-      </section>
-      <div className="hero-right">
+      </div>
+      <div className="hero-right"></div>
       <img src={hero1} alt="" />
-</div>
-<div>
-</div>
-</div>
-
+    </div>
   )
 }
 

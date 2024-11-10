@@ -3,7 +3,7 @@ import config from "../db/knexfile.js";
 
 const db = knex(config['development'])
 
-const insertUserToNotis = async (uid, item_id, outbid_price, time_bid, title, image, name) => {
+const insertUserToNotis = async (uid, item_id, outbid_price, time_bid, title, image, name, hasEnded, isBidder) => {
     console.log(outbid_price)
     await db('notifications')
         .insert({
@@ -13,7 +13,9 @@ const insertUserToNotis = async (uid, item_id, outbid_price, time_bid, title, im
             time_bid: time_bid,
             title: title,
             image: image,
-            name: name
+            name: name,
+            hasEnded: hasEnded,
+            isBidder: isBidder
         })
 }
 

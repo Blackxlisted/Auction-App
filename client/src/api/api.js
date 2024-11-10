@@ -1,12 +1,8 @@
 import axios from 'axios';
-import { store } from '../store.js';
-
 
 const AUCTIONS_ENDPOINT = 'http://localhost:5005/api/auctions';
 const BIDS_ENDPOINT = 'http://localhost:5005/api/bids';
 const UPDATE_HASENDED_ENDPOINT = 'http://localhost:5005/api/bids/updateHasEnded';
-const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid';
-const DEL_NOTIFICATION_URL = 'http://localhost:5005/api/notifications/delete'
 
 // trigger functions 
 // (will trigger the controller functions that are mounted on the relevant url endpoints)
@@ -60,32 +56,15 @@ export const updateHasEnded = async () => {
     }
 }
 
-// export const deleteNotification = async (uid, item_id) => {
-//     axios.get(DEL_NOTIFICATION_URL, {
-//         headers: {
-//             'uid': uid,
-//             'item_id': item_id
-//         }
-//     })
-//     .then((response) => {
-//         console.log(response.data);
-//     })
-//     .catch((error) => {
-//         console.log('Error on deleting notifications row in api.js', error);
-//     });
-    
-// }
-
-// export const getNotisByUidController = async (uid) => {
-//     try {
-//         const response = await axios.get(NOTIS_ENDPOINT, {
-//             headers: {
-//                 'uid': uid
-//             }
-//         });
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error on getting notifications endpoint', error);
-//     }
-// }
+export const getAuctionsByUid = async (uid) => {
+    try {
+        console.log(uid)
+        const response = await axios.get(AUCTIONS_ENDPOINT);
+        const items = response.data.filter(item => item.uid === uid);
+        console.log(items);      
+        return items;
+    } catch (error) {
+        console.error('Error fetching auction item from backend server', error);
+    }
+}
 
