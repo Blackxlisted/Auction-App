@@ -45,7 +45,7 @@ const LandingPage = () => {
 
   return (
     <div className='hero'>
-      <div className="hero-left">
+      <section className="hero-left">
         <h2>Bid, win, own—just one click away!</h2>
         <div>
             <div className="hero-hand-icon">
@@ -66,19 +66,22 @@ const LandingPage = () => {
                 </div>
               </Link>
               
-            ) :
+            ) : 
             (
               <div>
                 <button onClick={() => loginWithRedirect()}>Start bidding!</button>
               </div>
             )
-          }
-            
+          }   
         </div>
-      </div>
-      <div className="hero-right"></div>
+      </section>
+      <div className="hero-right">
       <img src={hero1} alt="" />
-    </div>
+</div>
+<div>
+</div>
+</div>
+
   )
 }
 

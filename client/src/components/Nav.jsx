@@ -25,29 +25,59 @@ const Nav = ()  => {
 
     return (
         <nav>
-            <div onClick={() => { 
-                setToggle(prevToggle => !prevToggle)
-
-            }}>
-
-                <img src={Hamburger} alt="menu-icon" className="menu-icon w-10 absolute top-5 right-5"></img>
-            </div>
-            {/* flex flex-row gap-4 p-4 fixed right-6 top-6 items-center */}
-            <ul className= {`nav ${toggle ? 'show' : 'hide'} nav-menu`}>
-                <div >
-                    <img src={logo} alt="" />
-                </div>
-                <li> <NavLink to='/' className='link'>
-                Home</NavLink> </li>
-                <li> <NavLink to='/create-auction' className='link'>
-                Create Auction</NavLink> </li>
-                <li> <NavLink to='/auctions' className='link'>
-                Auctions</NavLink> </li>
-                <div className="nav-login-auction-cart">
-                    <UserContainer user={user} login={loginWithRedirect} logout={logout} />
-                  </div>            
-            </ul>
-        </nav>
+            <div className="navbar bg-white text-primary-content">
+  <div className="navbar-start">
+    <div className="dropdown">
+      <div tabIndex={0} role="button" className="btn btn-accent lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </div>
+      <ul
+        tabIndex={0}
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li><a>Item 1</a></li>
+        <li>
+          <a>Parent</a>
+          <ul className="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+          </ul>
+        </li>
+        <li><a>Item 3</a></li>
+      </ul>
+    </div>
+    <button className="btn btn-neutral text-xl">AuctionArc</button>
+  </div>
+  <div className="navbar-center hidden lg:flex text-center">
+    <ul className="menu menu-horizontal px-64">
+    <li><a><NavLink to='/' className='target:shadow-lg font-bold text-lg'>Home</NavLink></a></li>
+      <li><a> <NavLink to='/create-auction' className='target:shadow-lg font-bold text-lg'>Create Auction</NavLink> </a></li>
+      <li>
+        <details>
+          <summary> <NavLink to='/auctions' className='target:shadow-lg font-bold text-lg'>Auctions</NavLink></summary>
+          <ul className="p-2 btn btn-neutral font-bold">
+            <li><a>Vehicles</a></li>
+            <li><a>Fashion</a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+    <div className="nav-login-auction-cart">
+                    <UserContainer  user={user} login={loginWithRedirect} logout={logout} />
+                  </div>
+  </div>
+</div>
+</nav>
     );
 };
 
