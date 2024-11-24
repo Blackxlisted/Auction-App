@@ -1,5 +1,5 @@
 import React from 'react'
-import hero1 from '../assets/hero1.png'
+import mainpage from '../assets/mainpage.png'
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { notificationToast } from '../notification_toast/notificationToast';
@@ -47,7 +47,8 @@ const LandingPage = () => {
   
 
   return (
-    <div className='hero'>
+
+    <div className='hero bg-gradient-to-tr from-shiko from-30% via-shino via-30% to bg-shilo to-70%'>
       <div className="hero-left">
         <h2>Bid, win, own—just one click away!</h2>
         <div>
@@ -78,10 +79,11 @@ const LandingPage = () => {
             
         </div>
       </div>
-      <div className="hero-right"></div>
-      <img src={hero1} alt="" />
+      <div className='flex-1 flex items-center justify-center max-w-lg '></div>
+      <img src={mainpage} alt="" className='max-w-[50%] bg-blend-normal'/>
     </div>
   )
+
 }
 
 export default LandingPage

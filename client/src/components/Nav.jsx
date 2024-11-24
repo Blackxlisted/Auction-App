@@ -28,10 +28,9 @@ const Nav = ()  => {
 
     return (
         <nav>
-
-            <div className="navbar bg-white text-primary-content">
+            <div className="navbar  bg-white text-primary-content">
   <div className="navbar-start">
-    <div className="dropdown">
+    <div className="">
       <div tabIndex={0} role="button" className="btn btn-accent lg:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,19 +45,6 @@ const Nav = ()  => {
             d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
-      </ul>
     </div>
     <button className="btn btn-neutral text-xl">AuctionArc</button>
   </div>
@@ -67,19 +53,16 @@ const Nav = ()  => {
     <li><a><NavLink to='/' className='target:shadow-lg font-bold text-lg'>Home</NavLink></a></li>
       <li><a> <NavLink to='/create-auction' className='target:shadow-lg font-bold text-lg'>Create Auction</NavLink> </a></li>
       <li>
-        <details>
           <summary> <NavLink to='/auctions' className='target:shadow-lg font-bold text-lg'>Auctions</NavLink></summary>
-          <li> <NavLink to={`/my-auctions`}>My Auctions</NavLink> </li>
-          <ul className="p-2 btn btn-neutral font-bold">
-            <li><a>Vehicles</a></li>
-            <li><a>Fashion</a></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
-    <div className="nav-login-auction-cart">
-                    <UserContainer  user={user} login={loginWithRedirect} logout={logout} />
-                  </div>
+        </li>
+        <li><a> 
+         <NavLink to='/my-auctions' className='target:shadow-lg font-bold text-lg pr-12'>My Auctions</NavLink>
+         </a>
+         </li> 
+         </ul> 
+         <div  className="nav-login-auction-cart">
+          <UserContainer  user={user} login={loginWithRedirect} logout={logout} />
+          </div>     
   </div>
 </div>
 </nav>

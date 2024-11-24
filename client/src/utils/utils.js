@@ -17,3 +17,4 @@ export const shortenString =  (str, maxLength) => {
     }
     return str;
 }
+ 

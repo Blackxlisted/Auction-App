@@ -1,7 +1,9 @@
 import React from 'react'
 import { getAuctions } from '../api/api.js';
 import { useState, useEffect } from 'react';
+import Auctionsad from '../pages/Auctionsad.jsx';
 import AuctionCatalogue from './AuctionCatalogue';
+
 
 function AuctionCatalogueContainer() {
 
@@ -22,7 +24,8 @@ function AuctionCatalogueContainer() {
 
     return (
         <>
-            <AuctionCatalogue auctionsInfo={auctionsInfo}/>
+        <Auctionsad/>
+        <AuctionCatalogue auctionsInfo={auctionsInfo}/>
         </>
     )
 }

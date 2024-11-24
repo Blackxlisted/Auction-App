@@ -8,7 +8,6 @@ function AuctionsPage() {
     <>
         {!id ? (
           <>
-            <h2>AuctionsPage</h2>
             <AuctionCatalogueContainer/>
           </>
         ) :

@@ -6,11 +6,14 @@ import { useAuth0 } from '@auth0/auth0-react';
 import BidsCatalogue from '../components/BidsCatalogue.jsx';
 import axios from 'axios';
 import ReactTimeAgo from 'react-time-ago'
+
+
 // utils
 import { fetchAuctionItem } from '../utils/AuctionItemPage/fetchAuctionItem.js';
 import { fetchBids } from '../utils/AuctionItemPage/fetchBids.js';
 import { setAmountBid } from '../utils/AuctionItemPage/InsertBid/setAmountBid.js';
 import { notifyUsers } from '../utils/AuctionItemPage/InsertBid/notifyUsers.js';
+import Divider from './Divider.jsx';
 
 function AuctionItemPage() {
     const { user } = useAuth0();
@@ -67,50 +70,88 @@ function AuctionItemPage() {
     return (
         <>
             {console.log(currentPrice)}
-            <div key={auctionInfo.id} className='flex flex-col max-w-60 text-center'>
+            <div key={auctionInfo.id} className='container mx-auto  max-w-5xl p-6'>
                 {/* image container */}
-                <div className='p-5'>
+                <div className='flex flex-row md:flex-nowrap gap-8'>
                     {auctionInfo.image_url ? 
-                    (<img src={auctionInfo.image_url} className='w-60'></img>) 
-                    : (<img src={image} className='w-60'></img>)}
-                </div>
+                    (<img src={auctionInfo.image_url} className='w-full max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain rounded-lg p-10 shadow-lg'></img>) 
+                    : (<img src={image} className=''></img>)}
+      
+                <div className='flex-1 '>
                 {/* title */}
-                <div> {auctionInfo.title} </div>
+                <div className='text-3xl font-bold text-gray-800'> {auctionInfo.title} </div>
+                <div className="rating">
+                <input type="radio" name="rating-1" className="mask mask-star" />
+                <input type="radio" name="rating-1" className="mask mask-star" defaultChecked />
+                <input type="radio" name="rating-1" className="mask mask-star" />
+                <input type="radio" name="rating-1" className="mask mask-star" />
+                <input type="radio" name="rating-1" className="mask mask-star" />
+</div>
+<div>
+<label className="flex cursor-pointer gap-2">
+  <span className="label-text"></span>
+  <input type="checkbox" value="synthwave" className="toggle theme-controller" />
+  <span className="label-text text-black">Save to Watch List</span>
+</label>
+</div>
+<div>
+    {/* You can open the modal using document.getElementById('ID').showModal() method */}
+<button className="btn btn-outline btn-warning" onClick={()=>document.getElementById('my_modal_3').showModal()}>Auction Arc's Choice</button>
+<dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <p className="py-4 text-white">Auction Arc's Choice highlights highly rated, well-priced products available to ship immediately.</p>
+  </div>
+</dialog>
+
+</div>
+
+                <Divider/> 
                 <div>
                     {/* full description */}
-                    <p> Starting at: £{(auctionInfo.price)} </p>
+                    <p className='text-2xl font-semibold text-green-600'> Starting at: £{(auctionInfo.price)} </p>
                     {auctionInfo.end_time ? 
                     (
-                        auctionInfo.hasEnded ? (<p>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
-                        : (<p> Ends <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                        auctionInfo.hasEnded ? (<p className='text-sm text-gray-500'>Ended: <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
+                        : (<p className='text-sm text-gray-500'> Ends <ReactTimeAgo date={Date.parse(auctionInfo.end_time)} locale="en-GB"/> </p>)
                     )
                     : (<></>)}
-                    <p> {auctionInfo.description} </p>
-                </div>            
-            </div>
+                    <p className='text-gray-700 leading-relaxed'> {auctionInfo.description} </p>
+                </div> 
+              
             <div>
                 {sub === auctionInfo.uid ? (
-                        <h3>Current Bids</h3>
+                        <h3 className='text-gray-700 leading-relaxed'>Current Bids</h3>
                     ) : auctionInfo.hasEnded == true ?
                     (                     
-                        <h3>Auction expired</h3>
+                        <h3 className='text-red-600 leading-relaxed'>Auction expired</h3>
                     ) : bids[0]?.uid !== sub ? (
-                        <div>
+                        <div className=''>
                             <label htmlFor='increment'></label>
-                            <input type='number' name='increment' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={(!isNaN(currentPrice) && !isNaN(bidIncrement)) ? (currentPrice + bidIncrement) : auctionInfo.price + bidIncrement} placeholder='Set your own amount'/>
+                            <input type='number' name='increment' className='w-full max-w-xs px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={(!isNaN(currentPrice) && !isNaN(bidIncrement)) ? (currentPrice + bidIncrement) : auctionInfo.price + bidIncrement} placeholder='Set your own amount'/>
+
+                            <div className='rounded-2xl pt-4 pb-4'>
                             {hasInput ? 
-                            (<button type='submit' className='btn' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
-                            : (<button className='btn' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (parseFloat(currentPrice+bidIncrement)) : (parseFloat(auctionInfo.price+bidIncrement))}</button>)}
+                            (<button type='submit' className=' btn glass' onClick={() => insertBid(sub, auctionInfo.id, customIncrement)}>Place custom bid</button>)
+                            : (<button className='btn glass ' onClick={() => {insertBid(sub, auctionInfo.id)}}>Place bid £{currentPrice ? (parseFloat(currentPrice+bidIncrement)) : (parseFloat(auctionInfo.price+bidIncrement))}</button>)}
+                            </div>
                             
                         </div>
-                    ) : (<p>You hold highest bid</p>)
-                }
-            </div>
+                    ) : (<p className='text-gray-700 leading-relaxed p-2'>You hold highest bid</p>)} </div>
             <section>
-                <div>
-                    <BidsCatalogue bids={bids} itemInfo={auctionInfo} />
-                </div>
-            </section>
+                <div className="bids-container max-h-40 w-full overflow-y-auto bg-gradient-to-b from-blue-50 to-blue-100 border border-gray-200 rounded-lg"
+                >
+                    <div className="bid-info justify-between items-center w-full p-3 bg-blue-100 border-blue-300 rounded-md">
+                    <BidsCatalogue bids={bids} className='text-lg text-gray-600 font-sans font-medium border-2' itemInfo={auctionInfo}/>
+                    </div>
+                    </div>
+                    </section>
+                    </div>
+                    </div>
+                    </div>
         </>
     )
 }

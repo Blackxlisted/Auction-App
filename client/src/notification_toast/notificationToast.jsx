@@ -59,7 +59,7 @@ async function notificationToast( uid, item_id, title, image, outbid_price, time
             ) : !isBidder && isBidder !== undefined ? (
               <>
                 <p className="mt-1 text-sm text-gray-500">
-                  You  <a href={url} className='text-indigo-600 hover:text-indigo-500'>auction</a> expired with no bids
+                  Your  <a href={url} className='text-indigo-600 hover:text-indigo-500'>auction</a> expired with no bids
                 </p>
               </>
             ) 

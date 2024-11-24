@@ -1,12 +1,13 @@
 import React from 'react'
+import Sellingsteps from '../components/Sellingsteps'
 import AuctionCreation from '../components/AuctionCreation'
+
 
 function CreateAuctionPage() {
   return (
     <>
-        <div className='flex justify-center mt-40'>
-            <AuctionCreation />
-        </div>
+          <Sellingsteps/>
+          <AuctionCreation />
     </>
   )
 }

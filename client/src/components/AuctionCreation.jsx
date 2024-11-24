@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Newsletter from '../assets/Newsletter.jpg'
 const AUCTION_URL = import.meta.env.VITE_DEVELOPMENT_AUCTIONS_URL;
 
 
@@ -60,23 +61,27 @@ function AuctionCreation() {
   
 
   return (
-    <form className='grid grid-rows-1 gap-4 mx-[40%]' onSubmit={handleSubmit} ref={formRef}>
-        <h3> Create auction</h3>
+    <div className='flex items-center justify-center shadow-inner px-8 py-4 bg-no-repeat bg-center'style={{ backgroundImage: `url(${Newsletter})`, backgroundSize: '120%' }}>
+    <form className='grid grid-rows-1 gap-4 items-center border-2 border-white p-6 bg-black w-full max-w-md rounded-lg shadow-lg' onSubmit={handleSubmit} ref={formRef}>
+    <div className='items-center justify-center'>
+        <h3 className='items-center text-3xl justify-center text-white px-24'> Create auction</h3>
+        </div>
         <label htmlFor='title'></label>
-        <input type="text" placeholder='Enter your title' id='title' name='title' required />
+        <input className='text-white' type="text" placeholder='Enter your title' id='title' name='title' required />
         <label htmlFor='description'></label>
-        <input type="text" placeholder='Description' id='description' name='description' />
+        <input className='text-white' type="text" placeholder='Description' id='description' name='description' />
         <label htmlFor='price'></label>
-        <input type="number" id='price' name='price' placeholder='Starting price' required />
+        <input className='text-white' type="number" id='price' name='price' placeholder='Starting price' required />
         <label htmlFor='min_bid_increment'></label>
-        <input type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' placeholder='Minimum bid increment' min='1' required />
+        <input className='text-white' type='number' id='min_bid_increment' name='min_bid_increment' step='0.01' placeholder='Minimum bid increment' min='1' required />
         <label htmlFor='file'></label>
-        <input type="file" id='file' name='file' />
+        <input className="file-input w-full max-w-xs bg-white text-black border border-white-300 hover:bg-gray-100" type="file" id='file' name='file' />
         <label htmlFor='endDatetime'></label>
-        <input type="datetime-local" id='end_time' name='end_time' required />
+        <input className='text-white' type="datetime-local" id='end_time' name='end_time' required />
         <button type='submit' className='btn'> Create Auction </button>
-        <button onClick={resetAllFields}>Reset?</button>
+        <button className='text-white' onClick={resetAllFields}>Reset?</button>  
     </form>
+    </div>
   )
 }
 

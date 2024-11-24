@@ -7,7 +7,7 @@ function BidsCatalogue({ bids, itemInfo }) {
     
     return (
         <>
-        <div>BidsCatalogue</div>
+        <div className='font-sans font-semibold border-1 rounded-md'>All Bids</div>
         {bids.find(bid => bid.item_id === id) ?
             (
                 bids.map((bid => {
@@ -24,7 +24,7 @@ function BidsCatalogue({ bids, itemInfo }) {
                     );
             })))
             : (
-               <div>No bids made...</div> 
+               <div className='font-sans font-semibold border-1 rounded-md'>No bids made...</div> 
             )}  
         </>
     )
