@@ -16,7 +16,7 @@ const AuctionCatalogue = ({ auctionsInfo }) => {
     const { user } = useAuth0();
     const [images, setImage] = useState({});
     const categories = ['Health & Household', 'Tools & Home Improvement', 'Home & Kitchen', 'Pet Supplies', 'Cell Phones & Accessories', 'Electronics', 'Video Games', 'Industrial & Scientific', 'Baby Products', 'Office Products', 'Beauty & Personal Care', 'Clothing'];
-    const cimages = ['Health.jpg','tools.jpg','kitchen.jpeg','pet.avif','Mobile.jpg','electronicsacc.avif','videogames.jpg','industrial.jpg','babyproducts.jpg','office.jpg','beauty.jpeg','clothing.jpg'];
+    
     const [filteredByCategory, setFilteredByCategory] = useState(null);
     const [filteredByDate, setFilteredByDate] = useState(null);
     const [filteredByPrice, setFilteredByPrice] = useState(null);
