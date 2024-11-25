@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { notificationToast } from '../notification_toast/notificationToast';
 import axios from 'axios';
 import { loadImage } from '../utils/utils';
+import Hcategories from '../components/Hcategories';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
 
 const LandingPage = () => {
   
@@ -47,6 +50,7 @@ const LandingPage = () => {
   
 
   return (
+    <>
 
     <div className='hero bg-gradient-to-tr from-shiko from-30% via-shino via-30% to bg-shilo to-70%'>
       <div className="hero-left">
@@ -81,9 +85,17 @@ const LandingPage = () => {
       </div>
       <div className='flex-1 flex items-center justify-center max-w-lg '></div>
       <img src={mainpage} alt="" className='max-w-[50%] bg-blend-normal'/>
+
     </div>
+          <Hcategories/>
+          <Newsletter/>
+          <Footer/>
+          
+    </>
   )
 
+
 }
+
 
 export default LandingPage

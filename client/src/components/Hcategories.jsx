@@ -7,8 +7,8 @@ import homeware from '../assets/homeware.avif';
 
 const Hcategories = () => {
   return (
-    <div className='flex items-center mt-24 mb-2 bg-[#c4d7e6]'>
-      <div className="card glass w-96 grid m-8 p-8">
+    <div className='flex flex-row justify-items-center mt-2 mb-2 ml-4 mr-4 bg-[#c4d7e6]'>
+      <div className="card left-5 glass w-96 grid m-8 p-8">
   <figure>
     <img
       src={electronics}
@@ -23,7 +23,7 @@ const Hcategories = () => {
   </div>
 </div>
 
-<div className="card glass w-96 grid m-8 p-8">
+<div className="card glass w-96 grid left-7 m-8 p-8">
   <figure>
     <img
       src={bathroom}
@@ -38,7 +38,7 @@ const Hcategories = () => {
   </div>
 </div>
 
-<div className="card glass w-96 grid m-8 p-8">
+<div className="card glass w-96 grid m-8 p-8 left-10">
   <figure>
     <img
       src={homeware}
