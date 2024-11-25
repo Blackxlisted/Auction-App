@@ -56,7 +56,7 @@ const Nav = ()  => {
           <summary> <NavLink to='/auctions' className='target:shadow-lg font-bold text-lg'>Auctions</NavLink></summary>
         </li>
         <li><a> 
-         <NavLink to='/my-auctions' className='target:shadow-lg font-bold text-lg pr-12'>My Auctions</NavLink>
+         <NavLink to='/my-auctions' className='target:shadow-lg font-bold text-lg'>My Auctions</NavLink>
          </a>
          </li> 
          </ul> 

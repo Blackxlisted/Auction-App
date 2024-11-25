@@ -16,7 +16,7 @@ const AuctionCatalogue = ({ auctionsInfo }) => {
     const { user } = useAuth0();
     const [images, setImage] = useState({});
     const categories = ['Health & Household', 'Tools & Home Improvement', 'Home & Kitchen', 'Pet Supplies', 'Cell Phones & Accessories', 'Electronics', 'Video Games', 'Industrial & Scientific', 'Baby Products', 'Office Products', 'Beauty & Personal Care', 'Clothing'];
-    
+    const cimages = ['Health.jpg','tools.jpg','kitchen.jpeg','pet.avif','Mobile.jpg','electronicsacc.avif','videogames.jpg','industrial.jpg','babyproducts.jpg','office.jpg','beauty.jpeg','clothing.jpg'];
     const [filteredByCategory, setFilteredByCategory] = useState(null);
     const [filteredByDate, setFilteredByDate] = useState(null);
     const [filteredByPrice, setFilteredByPrice] = useState(null);
@@ -66,10 +66,10 @@ const AuctionCatalogue = ({ auctionsInfo }) => {
                           <img src={`/images/${cimages[index]}`}
                           alt={category}  // This is for accessibility and describes the image
                           className='object-cover w-full h-full rounded-lg'/>
-                          <div
-        className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 text-white font-bold text-lg rounded-lg animate-fadein
-                    group-hover:bg-opacity-20 group-hover:text-opacity-100 transition duration-300 ease-in-out"
-      >
+                          <div className="
+                            absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 text-white font-bold text-lg rounded-lg animate-fadein
+                            group-hover:bg-opacity-20 group-hover:text-opacity-100 transition duration-300 ease-in-out"
+                          >
         {category}
       </div>
             </div>

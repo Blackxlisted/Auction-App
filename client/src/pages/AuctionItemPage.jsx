@@ -70,11 +70,11 @@ function AuctionItemPage() {
     return (
         <>
             {console.log(currentPrice)}
-            <div key={auctionInfo.id} className='container mx-auto  max-w-5xl p-6'>
+            <div key={auctionInfo.id} className='container mx-auto max-h-3xl p-6 '>
                 {/* image container */}
-                <div className='flex flex-row md:flex-nowrap gap-8'>
+                <div className='flex h-4/6 w-4/6 flex-col gap-8 items-center justify-items-center ml-48'>
                     {auctionInfo.image_url ? 
-                    (<img src={auctionInfo.image_url} className='w-full max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain rounded-lg p-10 shadow-lg'></img>) 
+                    (<img src={auctionInfo.image_url} className='max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain rounded-lg p-10 shadow-lg'></img>) 
                     : (<img src={image} className=''></img>)}
       
                 <div className='flex-1 '>
