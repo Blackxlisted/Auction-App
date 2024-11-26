@@ -1,11 +1,10 @@
 import React from 'react'
 import { shortenString } from '../utils/utils'
 import ReactTimeAgo from 'react-time-ago'
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { loadImage } from '../utils/utils';
 import { getAuctionsByUid } from '../api/api';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import sellingimage from '../assets/sellingimage.jpg';
 import Footer from '../components/Footer';
@@ -18,12 +17,12 @@ function MyAuctions() {
     const sub = user.sub;
 
     useEffect(() => {
-        if (!isLoading && user?.sub) {
+        if (!isLoading && user?.sub) { // if not loading fetch auction items that have been made by the user who is viewing myauctions
             console.log(sub);
             async function fetchItems (sub) {
                 try {
                     const item = await getAuctionsByUid(sub);
-                    if (item.length === 0) {
+                    if (item.length === 0) { // if the user does not have any auctions end function
                         return;
                     };
                     console.log(item);
@@ -38,7 +37,7 @@ function MyAuctions() {
     }, [isLoading, sub]);
     
     useEffect(() => {
-            async function setImages() {
+            async function setImages() { // loads images for each item separately
                 const localImages = {}
                 for (const auctionInfo of items) {
                     try {
@@ -59,13 +58,13 @@ function MyAuctions() {
           
         
       }, [items])
-    if (items.length !== 0) {
+    if (items.length !== 0) { // if user has auctions they have made display them
     return (
 
         <>
         <div className='flex flex-col gap-8 p-6'>
             {console.log(images)}
-            {items.map((auctionInfo) => {
+            {items.map((auctionInfo) => { // iterating through user's auctions and displaying them
 
             return (
                 <div key={auctionInfo.id} className='flex  rounded-lg  justify-items-center items-center gap-8 text-center mt-5 mr-0 overflow-x-auto bg-gradient-to-b from-gray-100 via-gray-50 to-blue-50 shadow-lg hover:shadow-2xl transition-shadow duration-200'>
@@ -108,7 +107,7 @@ function MyAuctions() {
         <Footer />
         </>
     )
-    } else {
+    } else { // display message saying user has no auctions
         return(
             <>
             <div className='w-11/12  place-items-center p-8  ml-14 animate-fadein'>

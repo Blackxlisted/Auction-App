@@ -123,12 +123,12 @@ function AuctionItemPage() {
                 </div> 
               
             <div>
-                {sub === auctionInfo.uid ? (
+                {sub === auctionInfo.uid ? ( // if auction item user id matches logged in user user id
                         <h3 className='text-gray-700 leading-relaxed'>Current Bids</h3>
-                    ) : auctionInfo.hasEnded == true ?
+                    ) : auctionInfo.hasEnded == true ? // if auction has ended
                     (                     
                         <h3 className='text-red-600 leading-relaxed'>Auction expired</h3>
-                    ) : bids[0]?.uid !== sub ? (
+                    ) : bids[0]?.uid !== sub ? ( // if the latest bid uid does not equal logged in users id
                         <div className=''>
                             <label htmlFor='increment'></label>
                             <input type='number' name='increment' className='w-full max-w-xs px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700' value={customIncrement} onChange={(e) => {setCustomIncrement(e.target.value); setHasInput(e.target.value)}} step='0.01' min={(!isNaN(currentPrice) && !isNaN(bidIncrement)) ? (currentPrice + bidIncrement) : auctionInfo.price + bidIncrement} placeholder='Set your own amount'/>

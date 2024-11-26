@@ -14,12 +14,9 @@ const LandingPage = () => {
   const { user, loginWithRedirect } = useAuth0();
   const sub = user?.sub;
   console.log(sub);
-  
-
-  
 
   const NOTIS_ENDPOINT = 'http://localhost:5005/api/notifications/get-by-uid'
-  const getNotis = async () => {
+  const getNotis = async () => { // function that retrieves notifications info from database
     try {
       const response = await axios.get(`${NOTIS_ENDPOINT}`, {
           headers: {
@@ -33,20 +30,20 @@ const LandingPage = () => {
     };
   };
   
-  const sendNotis = async () => {
+  const displayNotis = async () => { // function that displays notifications to the user using react hot toast
     const notifications = sub ? await getNotis() : '';
-    if (notifications)
+    if (notifications) // if user has  notifications to be sent
       {
-        notifications.map(async (item) => {
+        notifications.map(async (item) => { // loop through them and send a toast notification for each one
           console.log('notification object: ',item)
           const image = await loadImage(item.image);
           const { title, outbid_price, time_bid, item_id, name, hasEnded, isBidder } = item;
-          notificationToast(sub, item_id, title, image, outbid_price, time_bid, name, hasEnded, isBidder);
+          notificationToast(sub, item_id, title, image, outbid_price, time_bid, name, hasEnded, isBidder); // function that sends toast
         })
       }
   }
   
-  sendNotis();
+  displayNotis();
   
 
   return (

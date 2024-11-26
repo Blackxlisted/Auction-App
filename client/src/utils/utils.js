@@ -1,4 +1,4 @@
-export const loadImage = async (imageName) => {
+export const loadImage = async (imageName) => { // function that dynamically imports images
     try {
         if (imageName.endsWith('.jpg')) {
             imageName = imageName.slice(0, -4);
